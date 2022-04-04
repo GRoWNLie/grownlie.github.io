@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>GRoWNLie</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/618912100231806976/948906558341906432/logo.png" sizes="192x192" />
     <meta charset="UTF-8">
     <style>
         .container {
@@ -25,13 +23,12 @@
         <canvas id = "canvas_background" width = "1000" height = "1000"></canvas>
         <canvas id = "canvas_foreground" width = "1000" height = "1000"></canvas>
     </div>
-
     <script>
         const X_PIXELS=20
         const Y_PIXELS=20
         const X_OFFSET=20
         const Y_OFFSET=20
-
+        
         const X_IN_PLACE=1841
         const Y_IN_PLACE=176
 
@@ -76,7 +73,7 @@
             bg.drawImage(img, 0, 0, img.width, img.height, 0, Y_OFFSET, w, h)
             drawGrid(0, Y_OFFSET, w, h + Y_OFFSET, bg)
         };
-        img.src = 'https://media.discordapp.net/attachments/618912100231806976/960596874061033523/Yeni_Proje_3.png'
+        img.src = 'https://cdn.discordapp.com/attachments/960562867059437668/960594316844228708/gunesmito.jpg'
           function drawText(text, x, y){
             fg.font = '80px Sans-serif';
             fg.strokeStyle = 'black';
