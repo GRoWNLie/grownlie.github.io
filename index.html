@@ -1,141 +1,264 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+   
+    <title>Ana Sayfa ~ GRoWNLie</title>
+    <meta content="GRoWNLie Web Sayfasıdır" name="description">
+    <meta content="grownlie, grownlie.tk, grown, grownlie, hobbitemo,twitch,design,ferit karakaya,grownline,growlie,grownlie" name="keywords">
+
     
-        <title>GRoWNLie</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/618912100231806976/948906558341906432/logo.png" sizes="192x192" />
-    
-    <meta charset="UTF-8">
-    <style>
-        .container {
-            position: relative;
-        }
+   <link rel="stylesheet" href="assets/css/style.css">
+   <!--İcon -->
+   <link rel="icon" href="https://cdn.glitch.global/7a2f981b-edbf-4c5b-bdcf-6311b46e5333/logo.png?v=1647183128060" sizes="32x32" />
+   <link rel="icon" href="https://cdn.glitch.global/7a2f981b-edbf-4c5b-bdcf-6311b46e5333/logo.png?v=1647183128060" sizes="192x192" />
+   <link rel="apple-touch-icon" href="https://cdn.glitch.global/7a2f981b-edbf-4c5b-bdcf-6311b46e5333/logo.png?v=1647183128060" />
+  <!--İcon -->
 
-        .container > canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+   
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+         <!-- Sol menü-->
+         <div class="menu col-2 g-5 ">
 
-
-    </style>
-</head>
-<body>
-
-    <div id = "container" class = "container">
-        <canvas id = "canvas_background" width = "1000" height = "1000"></canvas>
-        <canvas id = "canvas_foreground" width = "1000" height = "1000"></canvas>
+          <!-- Navbar İmage-->
+          <div class="navbar-image">
+              <a href="index.html">
+           <img src="https://cdn.glitch.global/7a2f981b-edbf-4c5b-bdcf-6311b46e5333/logo.png?v=1647183128060"  alt="">
+          </a>
+          </div>
+          <!-- Navbar İmage-->
+   <!-- navbar -->
+   <nav id="navbar" class="navbar">
+    <ul> 
+    <div class="containere">
+      <li><a class="active" href="index.html"><i class="fa-solid fa-house"></i> AnaSayfa</a></li>
     </div>
-    <script>
-        const X_PIXELS=20
-        const Y_PIXELS=20
-        const X_OFFSET=20
-        const Y_OFFSET=20
+    <div class="containere">
+        <li><a href="about.html"><i class="fa-solid fa-address-card"></i> Hakkımda</a></li>
+      </div>
+      <div class="containere">
+        <li><a href="design.html"><i class="fa-solid fa-images"></i> Tasarımlar</a></li>
+      </div>
+      <div class="containere">
+        <li><a href="social.html"><i class="fa-solid fa-heart"></i> Sosyal Medya  </a></li>
+      </div>
+    </ul>
+  </nav><!-- navbar -->
+  
+      </div>
+    <!-- Sol menü-->
+
+        <!-- Main Bg-->
+        <div class="main col-10 g-5 col-sm-10 ">
+          <div class="container-fluid">
+            <div class="row">
+              
+              <div class="col-12">
+             <br>
+                <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="https://cdn.glitch.global/7a2f981b-edbf-4c5b-bdcf-6311b46e5333/banner.png?v=1647183124277" class="d-block w-100" alt="231">
+                      <div class="carousel-caption d-none d-md-block">
+                        <h5>GRoWNLie</h5><a href="https://www.twitch.tv/grownlie"> Twitch.tv/GRoWNLie</a> 
+                        
+                      </div>
+                    </div>
+                    <div class="carousel-item"  >
+                      <img src="https://cdn.glitch.global/7a2f981b-edbf-4c5b-bdcf-6311b46e5333/banner.png?v=1647183124277" class="d-block w-100" alt="...">
+                      <div class="carousel-caption d-none d-md-block">
+                        <h5>GRoWNLie</h5><a href="https://www.instagram.com/barankabcak/"> İnstagram.com/barankabcak</a> 
+                  
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <img src="https://cdn.glitch.global/7a2f981b-edbf-4c5b-bdcf-6311b46e5333/banner.png?v=1647183124277" class="d-block w-100" alt="...">
+                      <div class="carousel-caption d-none d-md-block">
+                        <h5>GRoWNLie</h5><a href="https://www.youtube.com/channel/UCNCxCy8LqlHIoBirY0AGbww"> Youtube.com/GRoWNLie</a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                  <!-- ======= Chefs Section ======= -->
+    <section id="chefs" class="chefs">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>BBL <span style="color: aliceblue;">Patronlar</span></h2>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="https://i.pinimg.com/736x/67/4d/21/674d21ef8dd8a50072bb1a36e32b02d2.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Asil 2.0 Rakun Pack</h4>
+                <span>Founder</span>
+                <div class="social">
+                  <a href=""><i class="fa-brands fa-twitter"></i></a>
+                  <a href=""><i class="fa-brands fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="https://www.neoldu.com/d/other/01-898.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Fiticun</h4>
+                <span>Founder</span>
+                <div class="social">
+                  <a href=""><i class="fa-brands fa-twitter"></i></a>
+                  <a href=""><i class="fa-brands fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="https://yt3.ggpht.com/ytc/AKedOLTnmpr7UJOiNyGncpS9S6BGyboBOolAm0Hz8T6-=s900-c-k-c0x00ffffff-no-rj" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>UTHENERE(Yaşlı Olan)</h4>
+                <span>Founder</span>
+                <div class="social">
+                  <a href=""><i class="fa-brands fa-twitter"></i></i></a>
+                  <a href=""><i class="fa-brands fa-instagram"></i></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Chefs Section -->
+
+
+              </div>
+
+            </div>
+          </div>
+<br><br>
+                 <!-- Footer--> 
+           <footer class="footer offset-0 " style="text-align: center;">
+             <a href="https://www.instagram.com/barankabcak/">Made İn GRoWNLie</a>
+           </footer>
+                <!-- Footer-->
+                <br>
+        </div>
+        <!-- Main Bg-->
+        <div class="col-lg-6">
+
+          <div class="form">
+            
+            <h4>Mesajını Gönder</h4>
+            <p>Mesajlarınız Destek (Support) Ekibimize Gönderilmektedir.</p>
+            <form>
+              <div class="form-group">
+              <input type="text" id="txtAd" placeholder="  Ad Soyad" style="height: 40px; width: 450px;">
+              </div>
+
+              <div class="form-group">
+            <input type="email" id="txtEm" placeholder="  E-Mail" style="height: 40px; width: 450px;">
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="txtSub" placeholder="  Konu" style="height: 40px; width: 450px;">
+          </div>
+          <div class="form-group">
+            <input type="text" id="txtGsm" placeholder="  Gsm No"  style="height: 40px; width: 450px;">
+          </div>
+
+            <div class="form-group">
+            <textarea name="txtMess" type="text" maxlength="480" id="txtMess" cols="58" rows="7" placeholder="  Mesaj" style="resize: none;"></textarea>
+             </div>
+
+            <button type="reset" name="clear" class="login login-submit"style="width: 223px;   background: #1bb1dc;
+            border: 0;
+            border-radius: 3px;
+            padding: 8px 30px;
+            color: #fff;
+            transition: 0.3s;" onclick="alert('🔔 Mesajlarınız Silindi ❗️❗️');">Sil</button>
+
+            <button type="button" id="uyari" name="uyari" class="login login-submit" style="
+            width: 223px;  
+             background: #1bb1dc;
+            border: 0;
+            border-radius: 3px;
+            padding: 8px 30px;
+            color: #fff;
+            transition: 0.3s;" onclick="sendEmail();"  >Gönder</button>
+            
+      
+            </form>
+          
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+        <script>
+            var ad=document.getElementById("txtAd");
+            var em=document.getElementById("txtEm");
+            var sub=document.getElementById("txtSub");
+            var gsm=document.getElementById("txtGsm");
+            var mess=document.getElementById("txtMess");
         
-        const X_IN_PLACE=1841
-        const Y_IN_PLACE=176
+            function sendEmail() {
+                    Email.send({
+                        //Host: "smtp.gmail.com", 
+                        //Username: "javasdeneme@gmail.com",
+                        //Password: "javasbaran",
+        
+                        SecureToken : "c7cda350-df04-4fa4-a444-c3f11eb34771",
+                        From: em.value,
+                        To: "barankabcak317@gmail.com",
+                        Subject: sub.value,
+                        Body: "<div style='background-color:#474747; border-top: 7px solid red;border-bottom: 7px solid red; height:700px; width:700px; text-align:center;color:white;'>"
+                          + "<br> <b style='color: red;text-align:left;margin-right:489px;'>Değerli Çalışma Arkadaşlarımız, </b>" 
+                          + " <br>"
+                          + " <br>"
+                          + " <b >Ad Soyad :</b> " + "<b style='color: red;'>" + ad.value + "</b>"
+                          + " <br>"
+                          + " <b>Maili : </b> " + "<b style='color: red;'>"+ em.value + "</b>"
+                          + "<br>"
+                          + " <b>GSM No : </b> " + "<b style='color: red;'>"+ gsm.value + "</b>"
+                          +" <br>" +" <b>Mesajı : </b> " + "<b style='color: red;'>"+ mess.value   + "</b>"                                                        
+                          + "<br><br><br><br><br><br>"                              
+                          + "<button class='btn' style='background-color:#474747;  border: solid;border-color:red; border-radius:12px; color: white;padding: 12px 16px; font-size: 16px; cursor: pointer; '><img style='height: 70px; width:200px;' src='https://i.hizliresim.com/47jsarg.png'></button>"
+                          + "<div style='text-align:left;margin-left:10px; '>"
+                          + "<br> <b style='color: red;'>ALIŞAN Lojistik A.Ş.</b>" 
+                          + "<br> Proje Departmanı"
+                          + "<br>İçerenköy Mah. Değirmen Yolu Cad."
+                          + "<br> No:28 Asia Ofis Park A2 Blok Kat:1"
+                          + "<br> 34752 Ataşehir / Istanbul"
+                          + "<br>Telefon            :+90 (216) 496 15 15"
+                          + "<br> Faks                : +90 (216) 469 14 90"
+                          +  "<br> Web                :  www.alisangroup.com" 
+                          + "<br> Hizmetlerimiz hakkında görüş ve önerilerinizi musterihatti@alisangroup.com adresi yardımı ile iletebilirsiniz."
+                          + "<br><br>  <b> Dahili / Internal olarak etiketlenmiştir.</b>"
+                          + "</div>"
+                          + "</div>",
+                        
+                    })
+                        .then(function (message) {
+                            alert("🔔 Mesajınız Başarı İle Gönderildi Tebrikler ✔️")
+                        });
+                }	
+        </script>
 
-        function getMousePos(canvas, evt) {
-            const rect = canvas.getBoundingClientRect();
-            return {
-                x: (evt.clientX - rect.left - 20) / (rect.right - rect.left) * canvas.width,
-                y: (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
-            };
-        }
-
-        function drawGrid(x_0, y_0, x_max, y_max, ctx) {
-            for (let x = x_0; x <= x_max; x += X_PIXELS) {
-                ctx.moveTo(x, y_0);
-                ctx.lineTo(x, y_max);
-                for (let y = y_0; y <= y_max; y += Y_PIXELS) {
-                    ctx.moveTo(x_0, y);
-                    ctx.lineTo(x_max, y);
-                }
-            }
-            ctx.strokeStyle = '#bbbbbb';
-            ctx.stroke();
-        }
-
-        const background = document.getElementById("canvas_background");
-        const bg = background.getContext("2d");
-
-        const  foreground = document.getElementById("canvas_foreground");
-        const fg = foreground.getContext("2d");
-
-        const img = new Image();
-        img.onload = function(){
-            w = img.width * X_PIXELS
-            h = img.height * Y_PIXELS
-
-            bg.canvas.width  = w + X_OFFSET;
-            bg.canvas.height = h + 2*Y_OFFSET;
-
-            fg.canvas.width  = bg.canvas.width;
-            fg.canvas.height = bg.canvas.height;
-            bg.imageSmoothingEnabled = false;
-            bg.drawImage(img, 0, 0, img.width, img.height, 0, Y_OFFSET, w, h)
-            drawGrid(0, Y_OFFSET, w, h + Y_OFFSET, bg)
-        };
-        img.src = 'https://cdn.discordapp.com/attachments/960562867059437668/960594316844228708/gunesmito.jpg'
-          function drawText(text, x, y){
-            fg.font = '80px Sans-serif';
-            fg.strokeStyle = 'black';
-            fg.lineWidth = 8;
-            fg.strokeText(text, x, y);
-            fg.fillStyle = 'white';
-            fg.fillText(text, x, y);
-        }
-
-        foreground.addEventListener('mousemove', event =>
-        {
-            let p = getMousePos(foreground, event);
-            let x = Math.floor((p.x)/X_PIXELS);
-            let y = Math.floor((p.y-Y_OFFSET)/Y_PIXELS) ;
-
-            fg.clearRect(0, 0, fg.canvas.width, fg.canvas.height);
-
-            if (y<0){
-                return;
-            }
-            drawText((x+ X_IN_PLACE)+"", p.x+40, p.y - 30)
-            drawText((y+ Y_IN_PLACE)+"", p.x+40, p.y + 50)
-
-            fg.lineWidth = 4;
-            let circle_x = x*X_PIXELS+X_PIXELS/2;
-            let circle_y = y*Y_PIXELS+Y_OFFSET+Y_PIXELS/2;
-            fg.beginPath()
-            fg.strokeStyle = 'red';
-            fg.arc(circle_x, circle_y, X_PIXELS-6, 0, 2 * Math.PI, false);
-            fg.stroke()
-
-            fg.beginPath()
-            fg.strokeStyle = 'white';
-            fg.arc(circle_x, circle_y, X_PIXELS-4, 0, 2 * Math.PI, false);
-            fg.stroke()
-
-            fg.beginPath()
-            fg.strokeStyle = 'black';
-            fg.arc(circle_x, circle_y, X_PIXELS, 0, 2 * Math.PI, false);
-            fg.stroke()
-
-        });
-
-        foreground.addEventListener('click', event =>
-        {
-            let p = getMousePos(foreground, event);
-            let x = Math.floor((p.x)/X_PIXELS) + X_IN_PLACE;
-            let y = Math.floor((p.y-Y_OFFSET)/Y_PIXELS) + Y_IN_PLACE;
-
-            if (y<Y_IN_PLACE){
-                return;
-            }
-
-            let url ="https://new.reddit.com/r/place/?cx="+x+"&cy="+y+"&px=23"
-            window.open(url, '_blank').focus();
-        });
-
-    </script>
-
-</body>
+      </div>
+      </div>
+<br><br>
+        <script src="https://kit.fontawesome.com/e778effc97.js" crossorigin="anonymous"></script>
+        <script src="assets/js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
 </html>
