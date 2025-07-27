@@ -264,13 +264,19 @@
     z-index: 9999;
   }
   #cropContainer {
-    background: rgb(24, 24, 24);
-    padding: 10px;
-    border-radius: 8px;
+
+      background: rgb(24, 24, 24);
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 95vw;
+  max-height: 95vh;
+  overflow: auto;
   }
   #imageToCrop {
-    max-width: 1080px;
-    max-height: 1080px;
+      width: 100%;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: block;
   }
 
     .arrow {
@@ -506,7 +512,7 @@
 </div>
 
     <div>
-      <h1>Mehmetin AMk Panel</h1>
+      <h1>Haber Panel</h1>
       <div class="menu">
         <a href="#" class="active">Görsel Oluştur</a>
         <a href="#">Haber Listesi</a>
@@ -825,8 +831,8 @@ function copyDesc() {
     if (!cropper) return;
 
     const canvas = cropper.getCroppedCanvas({
-      width: 400,
-      height: 400,
+      width: 800,
+      height: 800,
     });
 
     const croppedDataUrl = canvas.toDataURL('image/png');
@@ -834,7 +840,11 @@ function copyDesc() {
 
     closeCropModal();
   }
-
+document.getElementById('cropModal').addEventListener('click', function (e) {
+  if (e.target.id === 'cropModal') {
+    closeCropModal();
+  }
+});
   </script>
 </body>
 </html>
