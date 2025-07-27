@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haber Görsel Paneli</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      display: flex;
+    }
+
+    aside {
+      width: 250px;
+      background: #1e293b;
+      padding: 30px 20px;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    aside h1 {
+      font-size: 24px;
+      color: #7c3aed;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .menu a {
+      display: block;
+      color: #cbd5e1;
+      padding: 12px 15px;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      transition: 0.3s;
+    }
+
+    .menu a.active, .menu a:hover {
+      background: #7c3aed;
+      color: #fff;
+    }
+
+    main {
+      margin-left: 250px;
+      padding: 40px;
+      flex: 1;
+    }
+
+    .header {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #facc15;
+    }
+
+    .form input,
+    .form select,
+    .form textarea {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      border-radius: 6px;
+      border: none;
+      background: #334155;
+      color: white;
+    }
+
+    .form button,
+    .form a {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      margin: 5px;
+      background-color: #7c3aed;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .form button:hover {
+     background-color: #a069ff;
+     
+    }
+
+    button:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+
+    #capture {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      margin: 30px auto;
+      overflow: hidden;
+      background: linear-gradient(to top, #4c1d95 0%, #1e3a8a 12%,  #000000 45%);
+      transform: translateZ(0);
+       position: relative;
+    }
+
+    #capture img.bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+    }
+
+    #capture img.logo {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      width: 80px;
+      z-index: 3;
+    }
+    #sporTag ,
+#ekonomiTag ,
+  #breakingTag {
+   position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+
+  color: white;
+  padding: 10px 6px;
+  font-size: 16px;
+  font-weight: lighter;
+  font-family: sans-serif;
+  border-radius: 6px 0 0 6px;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+  z-index: 9999;
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: 1px;
+   display: none;
+}
+
+#breakingTag {
+  background-color: #dc262680; /* Kırmızı */
+  color: #fff;
+}
+
+#sporTag {
+  background-color: #10b98173; /* Yeşil */
+  color: #fff;
+}
+
+#ekonomiTag {
+  background-color: #f59f0b69; /* Turuncu */
+  color: #fff;
+}
+
+    #headline {
+      position: absolute;
+      top: 70%;
+      left: 8%;
+      text-align: left;
+      font-size: 48px;
+      z-index: 3;
+      color: white;
+      font-weight: bold;
+      text-shadow: 0 7px 9px rgba(0, 0, 0, 0.3);
+      word-break: break-word;
+    }
+
+    #desc {
+      position: absolute;
+      top: 77%;
+      left: 8%;
+      right: 8%;
+      text-align: left;
+      font-size: 28px;
+      z-index: 3;
+      color: white;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 2%;
+      margin: auto;
+      width: 80%;
+      border-radius: 30px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      padding: 10px 40px;
+      box-sizing: border-box;
+      z-index: 3;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .footer .icons {
+      margin-top: 5px;
+    }
+
+    .footer .icons i {
+      margin: 0 5px;
+    }
+#menuToggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+#editorModal {
+   display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(24, 24, 24);
+  border: 1px solid #ccc;
+  padding: 20px;
+  z-index: 1000;
+  width: 300px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+  border-radius: 10px;
+  
+}
+
+
+
+ #cropModal {
+    display: none; /* Başta kapalı */
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  #cropContainer {
+    background: rgb(24, 24, 24);
+    padding: 10px;
+    border-radius: 8px;
+  }
+  #imageToCrop {
+    max-width: 1080px;
+    max-height: 1080px;
+  }
+
+    .arrow {
+    --active: #fff;
+    --border: rgba(255, 255, 255, .12);
+    display: block;
+    position: relative;
+    width: 44px;
+    height: 44px;
+    &.left {
+        transform: scaleX(-1);
+    }
+    i {
+        display: block;
+        position: absolute;
+        margin: -10px 0 0 -10px;
+        width: 20px;
+        height: 20px;
+        left: 50%;
+        top: 50%;
+        &:before,
+        &:after {
+            content: '';
+            width: 10px;
+            height: 2px;
+            border-radius: 1px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background: var(--active);
+            margin: -1px 0 0 -5px;
+            display: block;
+            transform-origin: 9px 50%;
+        }
+        &:before {
+            transform: rotate(-40deg);
+        }
+        &:after {
+            transform: rotate(40deg);
+        }
+    }
+    &:before,
+    &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 1px;
+        right: 1px;
+        top: 1px;
+        bottom: 1px;
+        border-radius: 50%;
+        border: 2px solid var(--border);
+    }
+    svg {
+        width: 44px;
+        height: 44px;
+        display: block;
+        position: relative;
+        z-index: 1;
+        color: var(--active);
+        stroke-width: 2px;
+        stroke-dashoffset: 126;
+        stroke-dasharray: 126 126 0;
+        transform: rotate(0deg);
+    }
+    &.animate {
+        svg {
+            animation: stroke 1s ease forwards .3s;
+        }
+        i {
+            animation: arrow 1.6s ease forwards;
+            &:before {
+                animation: arrowUp 1.6s ease forwards;
+            }
+            &:after {
+                animation: arrowDown 1.6s ease forwards;
+            }
+        }
+    }
+}
+
+@keyframes stroke {
+    52% {
+        transform: rotate(-180deg);
+        stroke-dashoffset: 0;
+    }
+    52.1% {
+        transform: rotate(-360deg);
+        stroke-dashoffset: 0;
+    }
+    100% {
+        transform: rotate(-180deg);
+        stroke-dashoffset: 126;
+    }
+}
+
+@keyframes arrow {
+    0%,
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    23% {
+        transform: translateX(17px);
+        opacity: 1;
+    }
+    24%,
+    80% {
+        transform: translateX(-22px);
+        opacity: 0;
+    }
+    81% {
+        opacity: 1;
+        transform: translateX(-22px);
+    }
+}
+
+@keyframes arrowUp {
+    0%,
+    100% {
+        transform: rotate(-40deg) scaleX(1);
+    }
+    20%,
+    80% {
+        transform: rotate(0deg) scaleX(.1);
+    }
+}
+
+@keyframes arrowDown {
+    0%,
+    100% {
+        transform: rotate(40deg) scaleX(1);
+    }
+    20%,
+    80% {
+        transform: rotate(0deg) scaleX(.1);
+    }
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  aside {
+    left: -250px;
+    transition: left 0.3s ease;
+    z-index: 99;
+  }
+
+  aside.active {
+    left: 0;
+  }
+
+  #menuToggle {
+    display: block;
+  }
+
+  main {
+    margin-left: 0;
+    padding: 80px 20px 20px 20px;
+  }
+
+  #capture {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+     position: relative;
+  }
+  .footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 2%;
+      font-size: 2vw;
+      margin: auto;
+      width: 80%;
+      border-radius: 30px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      padding: 5px 20px;
+      box-sizing: border-box;
+      z-index: 3;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+     #headline {
+      position: absolute;
+      top: 70%;
+      left: 8%;
+      text-align: left;
+      font-size: 3vw;
+      z-index: 3;
+      color: white;
+      font-weight: bold;
+    }
+
+    #desc {
+      position: absolute;
+      top: 77%;
+      left: 8%;
+      right: 8%;
+      text-align: left;
+      font-size: 2vw;
+      z-index: 3;
+      color: white;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+     #capture img.logo {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 50px;
+      z-index: 3;
+    }
+  
+
+}
+
+    
+  </style>
+</head>
+<body>
+  <aside>
+    <div id="menuToggle" onclick="toggleSidebar()">
+  <i class="fas fa-bars"></i>
+</div>
+
+    <div>
+      <h1>Haber Panel</h1>
+      <div class="menu">
+        <a href="#" class="active">Görsel Oluştur</a>
+        <a href="#">Haber Listesi</a>
+        <a href="#">İstatistik</a>
+        <a href="#">Ayarlar</a>
+        
+      </div>
+    </div>
+    <div style="text-align: center; font-size: 12px; color: #64748b;">
+      © 2025 Mehmetin AMK
+    </div>
+  </aside>
+
+  <main>
+    <div class="header">Instagram Haber Görseli Oluştur</div>
+    <div class="form">
+      <input type="text" id="inputHeadline" placeholder="Haber Başlığı" />
+      <textarea id="inputDesc" rows="2" maxlength="283" placeholder="Haber Açıklaması"></textarea>
+      <small id="charCount" style="color: #94a3b8;">0 / 283</small>
+      <input type="file" id="bgInput" accept="image/*" />
+      <input type="text" id="bgUrlInput" placeholder="Resim URL girin (https://...)" />
+<button onclick="setBgFromUrl()">URL'den Arka Plan Yükle</button>
+<br>
+<!-- Düzenle Butonu -->
+<button onclick="toggleEditor()" style="margin-top: 20px;">Düzenle</button>
+
+<!-- Ayar Menüsü (Gizli Başlangıçta) -->
+
+<div id="editorModal">
+
+  <h3>Ayarlar</h3>
+  
+  <!-- Haber Kategorisi -->
+  <h4>Haber Kategorisi Seçiniz</h4>
+<select id="categorySelect" onchange="updateCategoryTheme()">
+  <option value="gundem">Gündem</option>
+  <option value="spor">Spor</option>
+  <option value="ekonomi">Ekonomi</option>
+  <option value="sondakika">Son Dakika</option>
+</select>
+
+  <!-- Font Seç -->
+  <H4>Font Seçiniz</H4>
+      <select id="fontSelect" onchange="updateFont()">
+        <option value="Segoe UI">Segoe UI</option>
+        <option value="Arial">Arial</option>
+        <option value="Georgia">Georgia</option>
+      </select>
+
+ <label for="headlineFontSize">
+  Başlık Yazı Boyutu: <span id="headlineSizeValue">48</span> px
+</label>
+<input type="range" id="headlineFontSize" min="24" max="72" value="48" oninput="updateFontSizes()" />
+
+<label for="descFontSize">
+  Açıklama Yazı Boyutu: <span id="descSizeValue">28</span> px
+</label>
+<input type="range" id="descFontSize" min="16" max="48" value="28" oninput="updateFontSizes()" />
+
+
+  <!-- Yana Kaydır Ekle -->
+  <button onclick="addYanaKaydiriniz()">Yana Kaydırınız Ekle</button><br><br>
+
+ 
+
+  <!-- Kapat -->
+  <button onclick="toggleEditor()">Kapat</button>
+ </div>
+
+
+
+
+<!-- Düzenle Butonu -->
+
+<button onclick="openCropModal()">Görseli Düzenle</button><br><br>
+<div id="cropModal">
+  <div id="cropContainer">
+    <img id="imageToCrop" src="" alt="Görseli Düzenle" />
+    <br/>
+    <button onclick="cropImage()">Kırp ve Kaydet</button>
+    <button onclick="closeCropModal()">İptal</button>
+  </div>
+</div>
+
+
+<!-- Crop Modal -->
+
+
+      <button onclick="copyDescription()">Açıklamayı Kopyala</button>
+      <a href="instagram://camera" class="openInstaBtn">Instagram’ı Aç</a>
+      <button id="downloadBtn" onclick="downloadImage()" >Görseli İndir</button>
+      
+    </div>
+
+    <div id="capture">
+      <img id="bgImage" class="bg" src="" alt=" arka plan" crossorigin="anonymous" />
+      <img class="logo" src="https://static-cdn.jtvnw.net/jtv_user_pictures/a330a2fc-86f4-4204-a59d-10fdfed6c5fd-profile_image-300x300.png" alt="logo" />
+
+      <div id="breakingTag">S<br>O<br>N<br><br>D<br>A<br>K<br>İ<br>K<br>A</div>
+      <div id="sporTag">S<br>P<br>O<br>R</div>
+      <div id="ekonomiTag">E<br>K<br>O<br>N<br>O<br>M<br>İ</div>
+      <div id="headline"></div>
+      <div id="desc"></div>
+      <div class="footer">
+        Mehmetin AMK Haber | Dinamik, Objektif, Yapıcı
+        <div class="icons">
+          <i class="fab fa-instagram"></i>
+          <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-twitter"></i>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+function updateFontSizes() {
+  const headlineSize = document.getElementById('headlineFontSize').value;
+  const descSize = document.getElementById('descFontSize').value;
+
+  document.getElementById('headline').style.fontSize = `${headlineSize}px`;
+  document.getElementById('desc').style.fontSize = `${descSize}px`;
+
+  document.getElementById('headlineSizeValue').textContent = headlineSize;
+  document.getElementById('descSizeValue').textContent = descSize;
+}
+
+function copyDescription() {
+  const textarea = document.getElementById("inputDesc");
+  textarea.select();
+  textarea.setSelectionRange(0, 99999); // mobil uyum için
+
+  document.execCommand("copy");
+
+  alert("Açıklama panoya kopyalandı!");
+}
+
+
+    function toggleSidebar() {
+  document.querySelector("aside").classList.toggle("active");
+}
+
+
+    document.getElementById('inputHeadline').addEventListener('input', updateVisual);
+    document.getElementById('inputDesc').addEventListener('input', updateVisual);
+    document.getElementById('bgInput').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        document.getElementById('bgImage').src = url;
+        updateVisual();
+      }
+    });
+
+    function updateVisual() {
+      document.getElementById('headline').textContent = document.getElementById('inputHeadline').value;
+      document.getElementById('desc').textContent = document.getElementById('inputDesc').value;
+    }
+
+    async function downloadImage() {
+  const capture = document.getElementById('capture');
+
+  // Orijinal boyutu sakla
+  const originalWidth = capture.style.width;
+  const originalHeight = capture.style.height;
+
+  // Geçici olarak sabit 1080x1080 yap
+  capture.style.width = "1080px";
+  capture.style.height = "1080px";
+
+  // html2canvas ile yüksek çözünürlükte render al
+  const canvas = await html2canvas(capture, {
+    useCORS: true,
+    backgroundColor: null,
+    width: 1080,
+    height: 1080,
+    scale: 1, // burada scale artırılabilir ama 1 ideal sabit boyutta
+  });
+
+  // İndir
+  const link = document.createElement('a');
+  link.download = 'haber-gorseli.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+
+  // Orijinal boyutu geri döndür
+  capture.style.width = originalWidth;
+  capture.style.height = originalHeight;
+}
+
+
+
+
+    const inputDesc = document.getElementById('inputDesc');
+const charCount = document.getElementById('charCount');
+inputDesc.addEventListener('input', () => {
+  charCount.textContent = `${inputDesc.value.length} / 283`;
+});
+
+ // Font seçmek için
+function updateFont() {
+  const font = document.getElementById('fontSelect').value;
+  document.getElementById('headline').style.fontFamily = font;
+  document.getElementById('desc').style.fontFamily = font;
+}
+
+ // Temaya Göre Arka Plan Rengi Değiştirme
+function updateCategoryTheme() {
+  const category = document.getElementById("categorySelect").value;
+  const capture = document.getElementById("capture");
+  const breakingTag = document.getElementById("breakingTag");
+  const sporTag = document.getElementById("sporTag");
+  const ekonomiTag = document.getElementById("ekonomiTag");
+
+  switch (category) {
+    case "spor":
+      capture.style.background = "linear-gradient(to top, #065f46 0%, #10b981 12%, #000000 45%)";
+      breakingTag.style.display = "none";
+      sporTag.style.display = "block"; // görünür yap
+      ekonomiTag.style.display = "none"; // görünür yap
+      break;
+    case "ekonomi":
+      capture.style.background = "linear-gradient(to top, #78350f 0%, #f59e0b 12%, #000000 45%)";
+      breakingTag.style.display = "none";
+      sporTag.style.display = "none";
+      ekonomiTag.style.display = "block"; // görünür yap
+      break;
+    case "sondakika":
+      capture.style.background = "linear-gradient(to top, #7f1d1d 0%, #dc2626 12%, #000000 45%)";
+      breakingTag.style.display = "block"; // görünür yap
+      sporTag.style.display = "none";
+      ekonomiTag.style.display = "none"; // görünür yap
+      break;
+    case "gundem":
+    default:
+      capture.style.background = "linear-gradient(to top, #4c1d95 0%, #1e3a8a 12%,  #000000 45%)";
+      breakingTag.style.display = "none";
+      sporTag.style.display = "none";
+      ekonomiTag.style.display = "none"; // görünür yap
+      break;
+  }
+}
+
+function addYanaKaydiriniz() {
+  const input = document.getElementById('inputDesc');
+  const desc = document.getElementById('desc');
+
+  // Metni ekle
+  input.value += ' Yana Kaydırınız';
+
+  // HTML olarak biçimle
+  desc.innerHTML = cleanText = input.value.replace(
+    'Yana Kaydırınız',
+    '<span style="display: inline-flex; align-items: center; gap: 8px;"><a href="#" class="arrow right"><i></i><svg><use xlink:href="#circle"></use></svg></a><span>Yana Kaydırınız</span></span>'
+  );
+}
+
+//urlden img ekleme
+function setBgFromUrl() {
+  const url = document.getElementById('bgUrlInput').value;
+  if (url) {
+    document.getElementById('bgImage').src = url;
+    updateVisual();
+  }
+}
+function toggleEditor() {
+  const modal = document.getElementById('editorModal');
+  modal.style.display = modal.style.display === 'none' ? 'block' : 'none';
+}
+
+function copyDesc() {
+  const descText = document.getElementById('desc').innerText;
+  navigator.clipboard.writeText(descText).then(() => {
+    alert('Açıklama kopyalandı!');
+  });
+}
+
+//görsel düzenleme 
+ let cropper;
+
+  function openCropModal() {
+    const cropModal = document.getElementById('cropModal');
+    const imageToCrop = document.getElementById('imageToCrop');
+    const bgImage = document.getElementById('bgImage');
+
+    if (!bgImage.src) {
+      alert("Önce arka plan resmi seçin veya yükleyin.");
+      return;
+    }
+
+    imageToCrop.src = bgImage.src;
+    cropModal.style.display = 'flex';
+
+    if (cropper) {
+      cropper.destroy();
+    }
+
+    cropper = new Cropper(imageToCrop, {
+      aspectRatio: 1,
+      viewMode: 1,
+      autoCropArea: 1,
+    });
+  }
+
+  function closeCropModal() {
+    const cropModal = document.getElementById('cropModal');
+    cropModal.style.display = 'none';
+
+    if (cropper) {
+      cropper.destroy();
+      cropper = null;
+    }
+  }
+
+  function cropImage() {
+    if (!cropper) return;
+
+    const canvas = cropper.getCroppedCanvas({
+      width: 800,
+      height: 800,
+    });
+
+    const croppedDataUrl = canvas.toDataURL('image/png');
+    document.getElementById('bgImage').src = croppedDataUrl;
+
+    closeCropModal();
+  }
+
+  </script>
+</body>
+</html>
