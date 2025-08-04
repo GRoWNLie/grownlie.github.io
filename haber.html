@@ -150,7 +150,10 @@
       color: white;
       font-weight: bold;
       text-shadow: 0 7px 9px rgba(0, 0, 0, 0.3);
-      word-break: break-word;
+       max-width: 80%;        /* Ekran genişliğinin %70'i kadar geniş olsun */
+  white-space: normal;   /* Satır sonlarında alt satıra geçsin */
+  word-break: break-word; /* Kelime ortasında da satır kırabilir */
+  overflow-wrap: break-word; /* Yeni standart */
     }
 
     #desc {
