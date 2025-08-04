@@ -507,6 +507,17 @@
 <input type="range" id="descFontSize" min="16" max="48" value="28" oninput="updateFontSizes()" />
 
 
+<label for="headlinePosition">
+  Başlık Konumu: <span id="headlinePosValue">70</span>%
+</label>
+<input type="range" id="headlinePosition" min="0" max="100" value="70" oninput="updatePositions()" />
+
+<label for="descPosition">
+  Açıklama Konumu: <span id="descPosValue">77</span>%
+</label>
+<input type="range" id="descPosition" min="0" max="100" value="77" oninput="updatePositions()" />
+
+
   <!-- Yana Kaydır Ekle -->
   <button onclick="addYanaKaydiriniz()">Yana Kaydırınız Ekle</button><br><br>
 
@@ -793,6 +804,31 @@ document.getElementById('cropModal').addEventListener('click', function (e) {
     closeCropModal();
   }
 });
+
+function updatePositions() {
+  const headlinePosSlider = document.getElementById('headlinePosition');
+  const descPosSlider = document.getElementById('descPosition');
+
+  const headlinePosValue = document.getElementById('headlinePosValue');
+  const descPosValue = document.getElementById('descPosValue');
+
+  const headline = document.getElementById('headline');
+  const desc = document.getElementById('desc');
+
+  // Yüzde değerleri al
+  const headlinePos = headlinePosSlider.value;
+  const descPos = descPosSlider.value;
+
+  // Güncelleme (top CSS property'sini yüzde olarak veriyoruz)
+  headline.style.top = headlinePos + '%';
+  desc.style.top = descPos + '%';
+
+  // Sliderların yanındaki metni güncelle
+  headlinePosValue.textContent = headlinePos;
+  descPosValue.textContent = descPos;
+}
+
+
   </script>
 </body>
 </html>
