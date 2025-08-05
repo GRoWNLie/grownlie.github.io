@@ -116,8 +116,6 @@
       margin: 30px auto;
       overflow: hidden;
       background: linear-gradient(to top, #4c1d95 0%, #1e3a8a 12%,  #0000003a 45%);
-      transform: translateZ(0);
-       position: relative;
     }
 
     #capture img.bg {
@@ -150,12 +148,12 @@
       color: white;
       font-weight: bold;
       text-shadow: 0 7px 9px rgba(0, 0, 0, 0.3);
-       max-width: 85%;        /* Ekran genişliğinin %70'i kadar geniş olsun */
-  white-space: normal;   /* Satır sonlarında alt satıra geçsin */
-  word-break: break-word; /* Kelime ortasında da satır kırabilir */
-  overflow-wrap: break-word; /* Yeni standart */
-    }
+      max-width: 85%;        /* Ekran genişliğinin %70'i kadar geniş olsun */
+      white-space: normal;   /* Satır sonlarında alt satıra geçsin */
+      word-break: break-word; /* Kelime ortasında da satır kırabilir */
+      overflow-wrap: break-word; /* Yeni standart */
 
+    }
     #desc {
       position: absolute;
       top: 77%;
@@ -449,7 +447,7 @@
 </div>
 
     <div>
-      <h1>BKV Haber Panel</h1>
+      <h1>BKV Panel</h1>
       <div class="menu">
         <a href="#" class="active">Görsel Oluştur</a>
         <a href="#">Haber Listesi</a>
@@ -568,7 +566,7 @@
 
 
       <div class="footer">
-       <img class="footer-img" src="assets/footer.png" alt="footer" />
+       <img class="footer-img" src="assets/footer2.png" alt="footer" />
 
       </div>
 
@@ -577,7 +575,7 @@
 
   </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
   <script>
 function updateFontSizes() {
   const headlineSize = document.getElementById('headlineFontSize').value;
@@ -726,7 +724,7 @@ function addYanaKaydiriniz() {
   input.value += ' Yana Kaydırınız';
 
   // HTML olarak biçimle
-  desc.innerHTML = cleanText = input.value.replace(
+  desc.innerHTML =  input.value.replace(
     'Yana Kaydırınız',
     '<span style="display: inline-flex; align-items: center; gap: 8px;"><a href="#" class="arrow right"><i></i><svg><use xlink:href="#circle"></use></svg></a><span>Yana Kaydırınız</span></span>'
   );
@@ -835,3 +833,5 @@ function updatePositions() {
   </script>
 </body>
 </html>
+
+
