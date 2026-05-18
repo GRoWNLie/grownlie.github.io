@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senin İçin...</title>
+    <style>
+        /* Minimalist ve temiz bir temel */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fbfbfd; /* Çok açık, premium gri/beyaz */
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Vektörel çizim alanı */
+        #scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Zarif karşılama metni */
+        .message-container {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .message {
+            font-size: 2.5rem;
+            font-weight: 200; /* İnce ve zarif yazı tipi */
+            color: #86868b; /* Göz yormayan yumuşak gri */
+            letter-spacing: 4px;
+            opacity: 0;
+            animation: fadeInText 3s ease-in-out 3s forwards; /* Çiçekler açtıktan sonra yavaşça belirir */
+        }
+
+        .sub-message {
+            font-size: 1rem;
+            font-weight: 300;
+            color: #a1a1a6;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeInText 3s ease-in-out 4.5s forwards;
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message-container">
+        <div class="message">SADECE SENİN İÇİN</div>
+        <div class="sub-message">açan çiçekler...</div>
+    </div>
+
+    <!-- Responsive SVG Alanı: Her ekranda (telefon/bilgisayar) kusursuz görünür -->
+    <svg id="scene" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        
+        <!-- Arka planda çok hafif, minimal bir güneş/ışık hüzmesi -->
+        <circle cx="960" cy="500" r="350" fill="#f5f5f7" stroke="none" />
+
+        <!-- Yumuşak çizgilerle çizilmiş minimal tepeler (Manzara) -->
+        <path d="M -100 1080 L -100 850 Q 400 700 960 900 T 2020 800 L 2020 1080 Z" fill="#f2f2f4" stroke="#e5e5ea" stroke-width="1"/>
+        <path d="M -100 1080 L -100 950 Q 300 1050 800 850 T 2020 950 L 2020 1080 Z" fill="#f7f7f9" stroke="#ebebeb" stroke-width="1"/>
+
+        <!-- Çiçekler JS ile buraya eklenecek -->
+    </svg>
+
+    <script>
+        const svgNS = "http://www.w3.org/2000/svg";
+        const scene = document.getElementById('scene');
+        
+        // Çok soft, premium pastel renk paleti (İnce pembe ve beyaz tonları)
+        const petalColors = ['#ffffff', '#fdf0f3', '#fbe4e8', '#faf5f7', '#fceef1'];
+
+        // Ekrana 40 adet çiçek dağıtıyoruz
+        for(let i = 0; i < 40; i++) {
+            createFlower();
+        }
+
+        function createFlower() {
+            // Çiçeklerin çıkacağı rastgele koordinatlar
+            const startX = Math.random() * 1920;
+            const startY = 1080;
+            const endY = 400 + Math.random() * 450; // Boy uzunlukları
+            
+            // Dala hafif organik bir kavis vermek için kontrol noktası
+            const cpX = startX + (Math.random() - 0.5) * 150;
+            const cpY = startY - 200;
+
+            const delay = Math.random() * 2000; // Her dalın büyüme başlangıcı farklı olsun
+
+            // 1. GÖVDE (Dal) Çizimi - İnce ve zarif
+            const stem = document.createElementNS(svgNS, 'path');
+            const pathData = `M ${startX} ${startY} Q ${cpX} ${cpY} ${startX} ${endY}`;
+            stem.setAttribute('d', pathData);
+            stem.setAttribute('fill', 'none');
+            stem.setAttribute('stroke', '#c1cdc1'); // Soft pastel yeşil
+            stem.setAttribute('stroke-width', '1.5');
+            
+            // Dalın uzama animasyonu için çizgi uzunluğu hilesi
+            stem.style.strokeDasharray = '1500';
+            stem.style.strokeDashoffset = '1500';
+            
+            stem.animate([
+                { strokeDashoffset: 1500 },
+                { strokeDashoffset: 0 }
+            ], { 
+                duration: 2500, 
+                delay: delay, 
+                fill: 'forwards', 
+                easing: 'ease-out' 
+            });
+            
+            scene.appendChild(stem);
+
+            // 2. ÇİÇEK YAPRAKLARI
+            // Yaprakları dalın en ucuna konumlandıran ana grup
+            const flowerWrapper = document.createElementNS(svgNS, 'g');
+            flowerWrapper.setAttribute('transform', `translate(${startX}, ${endY})`);
+
+            // Açma animasyonunu (büyüme) yapacak alt grup
+            const flowerHead = document.createElementNS(svgNS, 'g');
+            flowerHead.style.transform = 'scale(0)';
+            flowerHead.style.transformOrigin = '0px 0px'; // Merkez noktası
+            
+            const petalCount = 5 + Math.floor(Math.random() * 3);
+            const color = petalColors[Math.floor(Math.random() * petalColors.length)];
+            
+            // Yaprakları daire şeklinde çiz
+            for(let j = 0; j < petalCount; j++) {
+                const angle = (360 / petalCount) * j;
+                const petal = document.createElementNS(svgNS, 'path');
+                // İnce uzun, zarif bir yaprak formu (Bezier eğrisi ile)
+                petal.setAttribute('d', 'M 0 0 C -12 -25, -18 -55, 0 -65 C 18 -55, 12 -25, 0 0');
+                petal.setAttribute('fill', color);
+                petal.setAttribute('stroke', '#ebdadd'); // İnce yaprak kenar çizgisi
+                petal.setAttribute('stroke-width', '1');
+                petal.setAttribute('transform', `rotate(${angle})`);
+                flowerHead.appendChild(petal);
+            }
+            
+            // Çiçeğin tam ortasındaki zarif nokta
+            const centerDot = document.createElementNS(svgNS, 'circle');
+            centerDot.setAttribute('r', '5');
+            centerDot.setAttribute('fill', '#f5f5f7');
+            centerDot.setAttribute('stroke', '#d1d1d6');
+            centerDot.setAttribute('stroke-width', '1');
+            flowerHead.appendChild(centerDot);
+            
+            flowerWrapper.appendChild(flowerHead);
+            scene.appendChild(flowerWrapper);
+
+            // Çiçeğin açma (tomurcuklanıp büyüme) animasyonu
+            // Dallar hedefine ulaştıktan hemen sonra başlar (delay + 1800ms)
+            flowerHead.animate([
+                { transform: 'scale(0)' },
+                { transform: 'scale(1)' }
+            ], { 
+                duration: 1800, 
+                delay: delay + 1800, 
+                fill: 'forwards', 
+                easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)' // Hafifçe dışa taşıp oturan organik yaylanma
+            });
+        }
+    </script>
+</body>
+</html>
