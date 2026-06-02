@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sekerco - Premium E-Ticaret</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome İkon Kütüphanesi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- GENEL TASARIM SİSTEMİ --- */
+        :root {
+            --bg-color: #fcfaf2; 
+            --text-color: #222222;
+            --card-bg: #ffffff;
+            --primary-yellow: #fbd324;
+            --primary-blue: #2563eb;
+            --primary-green: #00e600; /* Görseldeki Sepete Ekle Yeşili */
+            --border-color: #222222;
+            --shadow-solid: 6px 6px 0px #222222;
+            --shadow-solid-sm: 4px 4px 0px #222222;
+            --radius-lg: 16px;
+            --radius-sm: 8px;
+            --whatsapp-green: #25d366;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
+
+        /* --- BUTONLAR --- */
+        .btn {
+            background-color: var(--primary-yellow); color: var(--text-color); padding: 12px 24px;
+            border: 3px solid var(--border-color); border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-solid-sm); font-weight: 800; text-transform: uppercase;
+            cursor: pointer; transition: all 0.2s ease; text-align: center;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px;
+        }
+        .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--border-color); }
+        .btn-blue { background-color: var(--primary-blue); color: white; }
+        .btn-green { background-color: var(--primary-green); color: var(--text-color); font-size: 16px; padding: 15px 20px;}
+        .btn-dark { background-color: var(--text-color); color: white; }
+        .btn-sm { padding: 6px 12px; font-size: 14px; box-shadow: 2px 2px 0px var(--border-color); }
+        .btn-sm:hover { box-shadow: 0px 0px 0px var(--border-color); }
+        .icon-btn { padding: 10px 15px; font-size: 18px; background-color: var(--card-bg); }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: var(--card-bg); border-bottom: 3px solid var(--border-color);
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100;
+        }
+        .brand-logo { font-size: 28px; font-weight: 900; letter-spacing: -1px; color: var(--text-color); text-decoration: none; }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-color); font-weight: 700; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--primary-blue); }
+
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-toggle { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+        .dropdown-menu {
+            display: block; position: absolute; top: 150%; left: 0; background-color: var(--card-bg); min-width: 220px;
+            border: 3px solid var(--border-color); border-radius: var(--radius-sm); box-shadow: var(--shadow-solid-sm); 
+            opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.2s ease; z-index: 200;
+        }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); top: 100%; }
+        .dropdown-menu a { display: block; padding: 12px 20px; border-bottom: 2px solid #eee; font-weight: 600;}
+        .dropdown-menu a:hover { background-color: var(--bg-color); color: var(--primary-blue); padding-left: 25px; }
+
+        .nav-actions { display: flex; align-items: center; gap: 12px; }
+        .hamburger-btn { display: none; background: none; border: none; font-size: 24px; color: var(--text-color); cursor: pointer; }
+
+        /* --- HERO BANNER --- */
+        .hero-section {
+            background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-lg); 
+            box-shadow: var(--shadow-solid); padding: 60px 40px; margin: 40px 5% 20px 5%;
+            display: flex; flex-direction: column; gap: 20px; align-items: flex-start;
+        }
+        .hero-tag { background: var(--primary-blue); color: white; padding: 5px 15px; font-weight: 800; border-radius: var(--radius-sm); font-size: 14px; text-transform: uppercase; border: 2px solid var(--border-color);}
+        .hero-title { font-size: 42px; font-weight: 900; line-height: 1.1; }
+
+        /* --- ANA SAYFA BİLEŞENLERİ --- */
+        .container { padding: 40px 5%; max-width: 1400px; margin: 0 auto; }
+        .section-title { font-size: 32px; margin-bottom: 30px; font-weight: 900; display: flex; align-items: center; gap: 10px;}
+        
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 60px; }
+        .feature-box { background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-sm); padding: 20px; box-shadow: var(--shadow-solid-sm); display: flex; align-items: center; gap: 15px; }
+        .feature-icon { font-size: 28px; color: var(--primary-blue); }
+        .feature-text h4 { font-size: 16px; font-weight: 800; margin-bottom: 3px; }
+        .feature-text p { font-size: 13px; color: #555; font-weight: 600; }
+
+        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 60px; }
+        .category-card { background: var(--card-bg); border: 3px solid var(--border-color); border-radius: 50px; padding: 15px 25px; box-shadow: var(--shadow-solid-sm); display: flex; align-items: center; justify-content: space-between; font-weight: 800; font-size: 18px; cursor: pointer; transition: all 0.3s; }
+        .category-card:hover { transform: translateY(-5px); box-shadow: 5px 5px 0px var(--border-color); }
+        .category-card:nth-child(1):hover { background-color: #ff9fb2; }
+        .category-card:nth-child(2):hover { background-color: #a0d8ef; }
+        .category-card:nth-child(3):hover { background-color: var(--primary-yellow); }
+        .category-card:nth-child(4):hover { background-color: #b8e994; }
+        .category-icon-wrapper { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
+        /* Ürün Listesi Slider */
+        .slider-container { display: flex; gap: 30px; overflow-x: auto; padding-bottom: 20px; scrollbar-width: none; margin-bottom: 60px; }
+        .slider-container::-webkit-scrollbar { display: none; }
+        
+        .product-card { 
+            background: var(--card-bg); min-width: 300px; max-width: 320px; border: 3px solid var(--border-color); 
+            border-radius: var(--radius-lg); box-shadow: var(--shadow-solid); padding: 20px; 
+            display: flex; flex-direction: column; gap: 15px; position: relative; cursor: pointer; transition: transform 0.2s;
+        }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-badges { position: absolute; top: 15px; left: 15px; display: flex; flex-direction: column; gap: 6px; z-index: 10; }
+        .badge { padding: 4px 10px; font-size: 12px; font-weight: 800; text-transform: uppercase; border: 2px solid var(--border-color); border-radius: var(--radius-sm); box-shadow: 2px 2px 0px var(--border-color); width: fit-content; }
+        .badge-discount { background-color: var(--primary-yellow); color: var(--text-color); }
+        .badge-new { background-color: var(--text-color); color: white; }
+        .badge-green { background-color: var(--primary-green); color: var(--text-color); }
+        .product-image { width: 100%; height: 220px; background-color: #f0f4f8; border-radius: var(--radius-sm); border: 3px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #666; }
+        .product-detail-title { font-size: 18px; font-weight: 800; line-height: 1.2; text-transform: uppercase;}
+        .product-price-container { display: flex; align-items: baseline; gap: 10px; margin-top: auto; }
+        .product-old-price { font-size: 16px; font-weight: 700; color: #888; text-decoration: line-through; }
+        .product-price { font-size: 26px; font-weight: 900; color: var(--primary-blue); }
+
+        .brands-grid { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 60px; }
+        .brand-card { border: 3px solid var(--border-color); border-radius: var(--radius-sm); padding: 15px 30px; font-weight: 800; font-size: 16px; color: var(--text-color); background: white; box-shadow: var(--shadow-solid-sm); text-transform: uppercase; text-align: center; flex: 1; min-width: 150px; }
+
+        /* --- MÜŞTERİ YORUMLARI PANELİ --- */
+        .reviews-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;}
+        .reviews-header-left small { text-transform: uppercase; color: #666; font-weight: 800; font-size: 12px; letter-spacing: 1px; }
+        .reviews-header-left h2 { font-size: 32px; font-weight: 900; margin-top: 5px; }
+        .reviews-header-right a { font-weight: 800; color: var(--text-color); text-decoration: none; display: flex; align-items: center; gap: 5px; transition: color 0.2s;}
+        .reviews-header-right a:hover { color: var(--primary-blue); }
+
+        .reviews-grid { display: grid; grid-template-columns: 300px 1fr 1fr; gap: 20px; margin-bottom: 60px; }
+        .review-summary-card { background: #f9f9f9; border: 3px solid var(--border-color); border-radius: var(--radius-lg); padding: 25px; box-shadow: var(--shadow-solid-sm); text-align: center; display: flex; flex-direction: column; gap: 15px; }
+        .review-score { font-size: 52px; font-weight: 900; display: flex; justify-content: center; align-items: baseline; gap: 5px; line-height: 1;}
+        .review-score span { font-size: 24px; color: #666; font-weight: 800; }
+        .review-stars { color: var(--text-color); font-size: 20px; margin-bottom: 5px;}
+        .review-count-text { font-size: 13px; color: #666; font-weight: 600; margin-bottom: 15px; }
+        
+        .progress-row { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 800; color: #555; margin-bottom: 8px;}
+        .progress-bar-bg { flex: 1; background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid #ccc;}
+        .progress-bar-fill { background: var(--text-color); height: 100%; border-radius: 4px; }
+        .progress-pct { width: 35px; text-align: right; font-weight: 700;}
+
+        .review-card { background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-lg); padding: 25px; box-shadow: var(--shadow-solid-sm); display: flex; flex-direction: column; justify-content: space-between; gap: 15px;}
+        .review-author-row { display: flex; gap: 12px; align-items: center; }
+        .author-avatar { width: 45px; height: 45px; background: var(--text-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; border: 2px solid var(--text-color);}
+        .author-info { display: flex; flex-direction: column; }
+        .author-name { font-weight: 900; font-size: 15px; display: flex; align-items: center; gap: 5px; }
+        .author-verified { color: #00a859; font-size: 12px; }
+        .author-meta { font-size: 12px; color: #888; font-weight: 600; }
+        .review-text { font-size: 14px; font-weight: 600; color: #333; line-height: 1.6; }
+        
+        .product-reference { background: #f4f4f4; border-radius: var(--radius-sm); padding: 12px 15px; display: flex; align-items: center; gap: 12px; margin-top: auto; border: 2px solid #e0e0e0;}
+        .product-ref-logo { width: 35px; height: 35px; background: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--primary-blue); border: 2px solid #ddd; }
+        .product-ref-detail { display: flex; flex-direction: column; }
+        .product-ref-brand { font-size: 10px; font-weight: 800; color: #888; text-transform: uppercase; }
+        .product-ref-name { font-size: 13px; font-weight: 800; color: var(--text-color); }
+        
+        .review-actions { display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #eee; padding-top: 15px; margin-top: 5px; }
+        .review-helpful-q { font-size: 12px; font-weight: 700; color: #777; }
+        .review-thumbs { display: flex; gap: 15px; }
+        .thumb-btn { background: none; border: none; font-size: 15px; color: #555; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: color 0.2s;}
+        .thumb-btn:hover { color: var(--primary-blue); }
+
+        /* --- INSTAGRAM REELS (9:16 Format) --- */
+        .ig-header { text-align: center; margin-bottom: 30px; }
+        .ig-header h2 { font-size: 32px; font-weight: 900; margin-bottom: 5px; }
+        .ig-header p { font-size: 14px; font-weight: 700; color: #666; }
+        
+        .ig-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 60px; }
+        .ig-card {
+            background-color: #ddd; border: 3px solid var(--border-color); border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-solid-sm); aspect-ratio: 9/16; position: relative; overflow: hidden; 
+            display: flex; flex-direction: column; justify-content: space-between; padding: 15px; cursor: pointer; transition: transform 0.2s;
+        }
+        .ig-card:hover { transform: translateY(-5px); box-shadow: 6px 6px 0px var(--border-color); }
+        .ig-card:nth-child(1) { background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); }
+        .ig-card:nth-child(2) { background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); }
+        .ig-card:nth-child(3) { background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%); }
+        .ig-card:nth-child(4) { background: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%); }
+        
+        .ig-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.6) 100%); z-index: 1; }
+        .ig-top, .ig-bottom { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; }
+        .ig-brand { display: flex; align-items: center; gap: 8px; color: white; font-weight: 800; font-size: 13px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);}
+        .ig-logo { width: 24px; height: 24px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: black; font-weight: 900;}
+        .ig-follow-btn { background: rgba(255,255,255,0.2); border: 2px solid white; color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; backdrop-filter: blur(4px); transition: background 0.2s; }
+        .ig-follow-btn:hover { background: white; color: black; }
+        .ig-views { color: white; font-weight: 800; font-size: 13px; display: flex; align-items: center; gap: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);}
+
+        /* --- BÜLTEN (NEWSLETTER) EKSİKSİZ GERİ GELDİ --- */
+        .newsletter-section { background: var(--primary-blue); border: 3px solid var(--border-color); border-radius: var(--radius-lg); padding: 50px 40px; margin: 0 5% 60px 5%; color: white; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; box-shadow: var(--shadow-solid); }
+        .newsletter-title { font-size: 32px; font-weight: 900; }
+        .newsletter-form { display: flex; gap: 10px; width: 100%; max-width: 500px; }
+        .newsletter-input { flex: 1; padding: 12px 20px; border: 3px solid var(--border-color); border-radius: var(--radius-sm); font-size: 16px; font-weight: 700; outline:none; }
+
+        /* ========================================================
+           YENİ: DETAYLI ÜRÜN İNCELEME SAYFASI (Görseldeki Tasarım)
+           ======================================================== */
+        .product-page-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color); z-index: 2500; display: none; overflow-y: auto; padding: 40px 5%;
+        }
+        .product-page-header { max-width: 1200px; margin: 0 auto 30px auto; display: flex; justify-content: space-between; align-items: center; }
+        
+        .product-detail-container {
+            max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+        }
+
+        /* Sol: Ürün Görselleri */
+        .product-detail-left { display: flex; flex-direction: column; gap: 20px; }
+        .product-detail-main-img-box {
+            background: var(--card-bg); border: 3px solid var(--border-color);
+            border-radius: var(--radius-lg); box-shadow: var(--shadow-solid);
+            padding: 20px; position: relative; overflow: hidden;
+        }
+        .product-detail-inner-img {
+            background: #f5f7fa; border: 2px solid #e8ecf1; border-radius: var(--radius-sm);
+            width: 100%; height: 500px;
+            display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: #ccc;
+        }
+        .product-detail-thumbnails { display: flex; gap: 12px; }
+        .product-detail-thumb {
+            width: 90px; height: 90px; background: white; border: 3px solid var(--border-color);
+            border-radius: var(--radius-sm); cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-weight: 800; color: #ccc;
+            transition: all 0.2s ease;
+        }
+        .product-detail-thumb:hover { border-color: var(--primary-blue); }
+        .product-detail-thumb.active { border-color: var(--primary-blue); box-shadow: 0 0 0 2px var(--primary-blue); }
+
+        /* Sağ: Ürün Bilgileri ve Aksiyonlar */
+        .product-detail-right { display: flex; flex-direction: column; align-items: flex-start; gap: 15px; padding-top: 10px;}
+        .product-detail-title-large { font-size: 48px; font-weight: 900; line-height: 1; text-transform: uppercase; color: var(--text-color); margin-bottom: 10px;}
+        
+        .product-detail-price-box { display: flex; align-items: center; gap: 15px; margin-bottom: 5px;}
+        .product-detail-price-box .product-old-price { font-size: 20px; font-weight: 800; color: #999; }
+        .product-detail-price-box .product-price { font-size: 38px; font-weight: 900; color: var(--primary-blue); }
+        
+        .product-detail-countdown {
+            background: var(--primary-yellow); border: 3px solid var(--border-color); border-radius: var(--radius-sm);
+            padding: 15px 20px; font-weight: 800; font-size: 15px; width: 100%; text-transform: uppercase; box-shadow: 4px 4px 0px var(--border-color); margin: 15px 0;
+        }
+        .product-detail-countdown u { text-decoration: underline; text-decoration-thickness: 2px;}
+        
+        .product-accordion { width: 100%; border: 3px solid var(--border-color); background: white; margin-top: 20px; }
+        .product-accordion summary { padding: 15px 20px; font-weight: 800; font-size: 16px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase;}
+        .product-accordion summary::-webkit-details-marker { display: none; }
+        .product-accordion-content { padding: 15px 20px; border-top: 2px solid var(--border-color); font-weight: 600; font-size: 14px; color: #555; background: #fafafa;}
+        
+        .product-description { margin-top: 20px; font-size: 14px; font-weight: 600; color: #444; line-height: 1.6; }
+
+        /* --- SAĞDAN AÇILAN SEPET ÇEKMECESİ --- */
+        .cart-drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 3000; }
+        .cart-drawer-overlay.active { opacity: 1; visibility: visible; }
+        .cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 450px; height: 100vh; background-color: var(--bg-color); border-left: 3px solid var(--border-color); box-shadow: -8px 0px 0px var(--border-color); z-index: 3100; transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; }
+        .cart-drawer.active { right: 0; }
+        .cart-header { padding: 20px 25px; border-bottom: 3px solid var(--border-color); background-color: var(--card-bg); display: flex; justify-content: space-between; align-items: center; }
+        .cart-body { flex: 1; overflow-y: auto; padding: 25px; display: flex; flex-direction: column; gap: 15px; }
+        .cart-item { display: flex; gap: 15px; background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-sm); padding: 15px; box-shadow: var(--shadow-solid-sm); }
+        .cart-item-img { width: 70px; height: 70px; background-color: #f0f4f8; border: 2px dashed #ccc; border-radius: var(--radius-sm); flex-shrink: 0; }
+        .cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .cart-footer { padding: 25px; border-top: 3px solid var(--border-color); background-color: var(--card-bg); }
+        .cart-total { display: flex; justify-content: space-between; font-size: 20px; font-weight: 800; margin-bottom: 20px; }
+
+        /* --- DETAYLI SEPET SAYFASI --- */
+        .cart-page-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); z-index: 1200; display: none; overflow-y: auto; padding: 40px 5%; }
+        .cart-page-container { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .cart-page-main { display: flex; flex-direction: column; gap: 20px; }
+        .cart-page-list-box { background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-solid); padding: 25px; overflow-x: auto;}
+        .cart-page-item-row { display: grid; grid-template-columns: 80px 2fr 120px 1fr 1fr 40px; align-items: center; gap: 15px; padding: 20px 0; border-bottom: 2px solid #eee; min-width: 600px;}
+        .cart-page-item-row:last-child { border-bottom: none; }
+        .sidebar-action-card { background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-sm); padding: 15px 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-solid-sm); }
+        .sidebar-summary-box { background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-solid); padding: 25px; margin-bottom: 15px; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 700; font-size: 14px;}
+        .summary-row.total-row { font-size: 20px; font-weight: 900; border-top: 2px dashed #ccc; padding-top: 15px; margin-top: 15px; }
+        .warning-notice-box { background: #fffdf0; border: 2px solid var(--border-color); border-radius: var(--radius-sm); padding: 15px; font-size: 12px; font-weight: 700; color: #555; border-left: 6px solid var(--primary-yellow); margin-bottom: 25px; }
+        
+        /* --- TAM SAYFA ÖDEME EKRANI (CHECKOUT) --- */
+        .checkout-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); z-index: 2000; display: none; overflow-y: auto; padding: 40px 5%; }
+        .checkout-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .checkout-box { background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-solid); padding: 30px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 800; margin-bottom: 8px; }
+        .form-group input { width: 100%; padding: 12px; border: 3px solid var(--border-color); border-radius: var(--radius-sm); font-size: 16px; outline:none; font-weight:600;}
+
+        /* --- PROFİL & ARAMA OVERLAYLERİ --- */
+        .search-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(252, 250, 242, 0.98); z-index: 3500; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+        .search-container { width: 100%; max-width: 800px; display: flex; gap: 15px; }
+        .search-container input { flex: 1; padding: 20px; font-size: 24px; font-weight: 800; border: 4px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-solid); outline: none; }
+        .profile-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); z-index: 2000; display: none; overflow-y: auto; padding: 40px 5%; }
+        .profile-header { max-width: 1100px; margin: 0 auto 40px auto; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--border-color); padding-bottom: 20px; flex-wrap: wrap; gap: 15px;}
+        .profile-layout { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 250px 1fr; gap: 40px; }
+        .profile-sidebar { display: flex; flex-direction: column; gap: 15px; }
+        .profile-nav-btn { background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-sm); padding: 15px 20px; font-weight: 800; cursor: pointer; text-align: left; transition: all 0.2s;}
+        .profile-nav-btn.active, .profile-nav-btn:hover { background: var(--primary-yellow); box-shadow: 2px 2px 0px var(--border-color); transform: translate(-2px, -2px);}
+        .profile-content-box { background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow-solid); }
+        .order-card { border: 3px solid var(--border-color); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
+
+        /* --- MEGA FOOTER --- */
+        .mega-footer { background-color: var(--card-bg); border-top: 3px solid var(--border-color); padding: 60px 5% 20px 5%; font-size: 14px; margin-top: 60px;}
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1.5fr; gap: 30px; margin-bottom: 40px; }
+        .footer-col h4 { font-size: 16px; font-weight: 900; color: var(--primary-blue); margin-bottom: 20px; text-transform: uppercase; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-col a { color: #555; text-decoration: none; font-weight: 600; transition: color 0.2s; }
+        .footer-col a:hover { color: var(--primary-blue); font-weight: 800; }
+        .footer-brand-info p { color: #555; margin-bottom: 20px; line-height: 1.5; font-weight: 600; }
+        .social-title { font-weight: 900; font-size: 13px; margin-bottom: 10px; display: block; }
+        .social-icons { display: flex; gap: 10px; margin-bottom: 20px; }
+        .social-btn { width: 40px; height: 40px; border: 3px solid var(--border-color); border-radius: var(--radius-sm); display: flex; justify-content: center; align-items: center; text-decoration: none; color: var(--border-color); font-weight: bold; background: var(--bg-color); box-shadow: 2px 2px 0px var(--border-color); transition: all 0.2s;}
+        .social-btn:hover { background: var(--primary-yellow); transform: translate(2px,2px); box-shadow: 0px 0px 0px var(--border-color);}
+        .whatsapp-btn { background-color: var(--whatsapp-green); color: white; border: 3px solid var(--border-color); border-radius: var(--radius-sm); padding: 12px 15px; display: flex; align-items: center; gap: 10px; text-decoration: none; box-shadow: var(--shadow-solid-sm); margin-bottom: 20px; transition: transform 0.2s; }
+        .whatsapp-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--border-color);}
+        .contact-info-item { margin-bottom: 15px; display: flex; gap: 10px; align-items: flex-start; }
+        .contact-icon { font-size: 18px; margin-top: 2px; color: var(--primary-blue); }
+        .contact-text small { display: block; color: #777; font-weight: 700; font-size: 11px; text-transform: uppercase; }
+        .contact-text span { font-weight: 800; font-size: 14px; }
+        .payment-strip { border-top: 2px dashed #ddd; border-bottom: 2px dashed #ddd; padding: 20px 0; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+        .payment-title { font-weight: 900; font-size: 13px; color: #555; }
+        .payment-logos { display: flex; gap: 10px; flex-wrap: wrap; }
+        .payment-logo-box { border: 2px solid #ddd; border-radius: 4px; padding: 5px 10px; background: white; font-size: 12px; font-weight: 800; color: #444; }
+        .payment-logo-green { color: #00a859; border-color: #00a859; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; color: #666; font-size: 12px; font-weight: 600;}
+        .footer-bottom-links { display: flex; gap: 15px; flex-wrap: wrap; }
+        .footer-bottom-links a { color: #666; text-decoration: none; }
+
+        /* =========================================
+           RESPONSIVE TASARIM (MOBİL UYUMLULUK DÜZELTİLDİ)
+           ========================================= */
+        @media (max-width: 1024px) {
+            .reviews-grid { grid-template-columns: 1fr 1fr; }
+            .review-summary-card { grid-column: span 2; }
+            .footer-grid { grid-template-columns: repeat(3, 1fr); }
+            .profile-layout { grid-template-columns: 1fr; }
+            .product-detail-container { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 992px) {
+            .cart-page-container { grid-template-columns: 1fr; }
+            .checkout-container { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .hamburger-btn { display: block; }
+            .nav-actions { gap: 8px; }
+            .nav-actions .btn { padding: 8px 10px; font-size: 13px; }
+            .nav-links { display: none !important; }
+            
+            .hero-title { font-size: 24px; }
+            .hero-section { padding: 30px 20px; margin: 20px 4% 15px 4%; }
+            .hero-tag { font-size: 12px; }
+            .section-title { font-size: 22px; margin-bottom: 20px; }
+            .container { padding: 25px 4%; }
+            
+            .features-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 40px; }
+            .feature-box { padding: 15px; gap: 10px; }
+            .feature-icon { font-size: 22px; }
+            .feature-text h4 { font-size: 13px; }
+            .feature-text p { font-size: 11px; }
+            
+            .category-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 40px; }
+            .category-card { font-size: 14px; padding: 12px 18px; border-radius: 30px; }
+            .category-icon-wrapper { width: 38px; height: 38px; font-size: 16px; }
+            
+            .slider-container { gap: 15px; margin-bottom: 40px; }
+            .product-card { min-width: 260px; max-width: 280px; padding: 15px; }
+            .product-image { height: 180px; }
+            .product-detail-title { font-size: 15px; }
+            .product-price { font-size: 22px; }
+            .product-old-price { font-size: 14px; }
+            
+            .brands-grid { gap: 10px; margin-bottom: 40px; }
+            .brand-card { padding: 12px 15px; font-size: 13px; min-width: 100px; }
+            
+            .reviews-grid { grid-template-columns: 1fr; gap: 15px; }
+            .review-summary-card { grid-column: span 1; padding: 20px; }
+            .review-score { font-size: 42px; }
+            .review-card { padding: 20px; }
+            
+            .ig-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            
+            .newsletter-section { padding: 35px 20px; margin: 0 4% 40px 4%; }
+            .newsletter-title { font-size: 22px; }
+            .newsletter-form { flex-direction: column; }
+            
+            .footer-grid { grid-template-columns: 1fr; gap: 0; }
+            .footer-col { border-bottom: 2px solid #eee; }
+            .footer-col:last-child { border-bottom: none; }
+            .footer-col h4 { margin-bottom: 0; }
+            .footer-col.footer-brand-info { border-bottom: 2px solid #eee; padding-bottom: 25px; margin-bottom: 0; }
+            .footer-col.footer-accordion-col h4 { cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 18px 0; margin-bottom: 0; }
+            .footer-col.footer-accordion-col h4::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 12px; color: #999; transition: transform 0.3s; }
+            .footer-col.footer-accordion-col.open h4::after { transform: rotate(180deg); }
+            .footer-col.footer-accordion-col ul { display: none; padding-bottom: 15px; }
+            .footer-col.footer-accordion-col.open ul { display: flex; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .footer-bottom-links { justify-content: center; }
+            .search-container { flex-direction: column; }
+            .search-container input { font-size: 18px; padding: 15px; }
+            
+            .product-detail-container { gap: 25px; }
+            .product-detail-title-large { font-size: 28px; }
+            .product-detail-price-box .product-price { font-size: 30px; }
+            .product-detail-inner-img { height: 300px; }
+            .product-detail-thumbnails { gap: 8px; }
+            .product-detail-thumb { width: 65px; height: 65px; }
+            .product-page-overlay { padding: 20px 4%; }
+            
+            .cart-page-overlay { padding: 20px 4%; }
+            .checkout-overlay { padding: 20px 4%; }
+            .profile-overlay { padding: 20px 4%; }
+            .profile-header { padding-bottom: 15px; }
+            .profile-header h1 { font-size: 24px; }
+            
+            .mega-footer { padding: 30px 4% 15px 4%; margin-top: 40px; }
+            .payment-strip { gap: 10px; padding: 15px 0; }
+        }
+        @media (max-width: 480px) {
+            .features-grid { grid-template-columns: 1fr; }
+            .category-grid { grid-template-columns: 1fr; }
+            .ig-grid { grid-template-columns: 1fr; }
+            .product-card { min-width: 100%; max-width: 100%; }
+            .slider-container { flex-direction: column; align-items: stretch; }
+            .hero-title { font-size: 22px; }
+            .brand-card { min-width: 80px; padding: 10px; font-size: 12px; }
+        }
+
+        /* --- MOBİL DRAWER MENÜ --- */
+        .mobile-menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 4000;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu-drawer {
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 380px; height: 100vh;
+            background: var(--bg-color); z-index: 4100; overflow-y: auto;
+            transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex; flex-direction: column;
+        }
+        .mobile-menu-drawer.active { left: 0; }
+        .mobile-menu-header {
+            padding: 20px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid #eee;
+        }
+        .mobile-menu-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-color); padding: 5px; }
+        .mobile-menu-body { padding: 15px 20px; flex: 1; }
+        .mobile-account-card {
+            background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-lg);
+            padding: 18px 20px; display: flex; align-items: center; gap: 15px;
+            margin-bottom: 25px; box-shadow: var(--shadow-solid-sm); cursor: pointer; transition: all 0.2s;
+        }
+        .mobile-account-card:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--border-color); }
+        .mobile-account-icon {
+            width: 48px; height: 48px; background: var(--primary-blue); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 20px; border: 2px solid var(--border-color); flex-shrink: 0;
+        }
+        .mobile-account-info { flex: 1; }
+        .mobile-account-info strong { font-size: 16px; font-weight: 900; display: block; text-transform: uppercase; }
+        .mobile-account-info small { font-size: 12px; color: #888; font-weight: 600; }
+        .mobile-account-arrow { color: var(--primary-blue); font-size: 18px; }
+        .mobile-menu-item {
+            display: flex; align-items: center; gap: 15px; padding: 16px 5px;
+            border-bottom: 2px solid #f0f0f0; text-decoration: none; color: var(--text-color);
+            font-weight: 700; font-size: 15px; transition: all 0.2s;
+        }
+        .mobile-menu-item:hover { padding-left: 10px; color: var(--primary-blue); }
+        .mobile-menu-item:last-child { border-bottom: none; }
+        .mobile-menu-icon {
+            width: 40px; height: 40px; border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; flex-shrink: 0;
+        }
+        .mobile-menu-icon.yellow { background: #fff3cd; color: #b8860b; }
+        .mobile-menu-icon.blue { background: #dbeafe; color: var(--primary-blue); }
+        .mobile-menu-icon.green { background: #d1fae5; color: #059669; }
+        .mobile-menu-icon.purple { background: #ede9fe; color: #7c3aed; }
+        .mobile-menu-icon.red { background: #fee2e2; color: #dc2626; }
+        .mobile-menu-item-arrow { margin-left: auto; color: #ccc; font-size: 14px; }
+        .mobile-quick-title {
+            font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+            color: #999; margin: 25px 0 12px 5px;
+        }
+        .mobile-quick-links {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;
+        }
+        .mobile-quick-link {
+            background: var(--card-bg); border: 2px solid #eee; border-radius: var(--radius-sm);
+            padding: 14px 12px; display: flex; align-items: center; gap: 10px;
+            text-decoration: none; color: var(--text-color); font-weight: 700; font-size: 13px;
+            transition: all 0.2s;
+        }
+        .mobile-quick-link:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
+        .mobile-quick-link i { font-size: 16px; color: var(--primary-blue); }
+        .mobile-whatsapp-bar {
+            background: var(--whatsapp-green); border: 3px solid var(--border-color);
+            border-radius: var(--radius-sm); padding: 15px 18px;
+            display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0;
+            text-decoration: none; color: white; box-shadow: var(--shadow-solid-sm); transition: all 0.2s;
+        }
+        .mobile-whatsapp-bar:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--border-color); }
+        .mobile-whatsapp-bar .wa-icon { width: 44px; height: 44px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .mobile-whatsapp-bar .wa-text strong { display: block; font-size: 14px; }
+        .mobile-whatsapp-bar .wa-text small { font-size: 12px; opacity: 0.85; }
+        .mobile-whatsapp-bar .wa-arrow { margin-left: auto; font-size: 18px; }
+
+        /* --- CLOSE BUTTON FIX --- */
+        .close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-color); transition: color 0.2s; }
+        .close-btn:hover { color: red; }
+
+        /* --- BADGE DARK --- */
+        .badge-dark { background-color: var(--text-color); color: white; }
+
+        /* --- KAMPANYA BÖLÜMÜ (SEPET SAYFASI) --- */
+        .special-campaigns-section { margin-top: 25px; padding: 20px; background: #fffdf0; border: 3px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-solid-sm); }
+        .campaign-banner-box { display: flex; align-items: center; gap: 15px; margin-top: 15px; padding: 15px; background: white; border: 2px solid var(--border-color); border-radius: var(--radius-sm); }
+        .campaign-active-badge { background: #b8e994; color: #1e5a00; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 2px solid #1e5a00; white-space: nowrap; }
+
+        /* --- PRODUCT CARD DESCRIPTION FIX --- */
+        .product-card .product-description { margin-top: 0; font-size: inherit; color: inherit; line-height: inherit; font-weight: inherit; }
+
+        /* --- DUYURU ÇUBUĞU --- */
+        .announcement-bar {
+            background: linear-gradient(90deg, var(--primary-blue), #7c3aed);
+            color: white; text-align: center; padding: 10px 20px;
+            font-weight: 700; font-size: 14px; letter-spacing: 0.5px;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            position: relative; overflow: hidden;
+        }
+        .announcement-bar::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 200%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: announcement-shine 3s infinite;
+        }
+        @keyframes announcement-shine { 0% { left: -100%; } 100% { left: 100%; } }
+        .announcement-bar .close-announcement { background: none; border: none; color: white; font-size: 18px; cursor: pointer; position: absolute; right: 15px; opacity: 0.7; transition: opacity 0.2s; }
+        .announcement-bar .close-announcement:hover { opacity: 1; }
+
+        /* --- FAVORİ KALP İKONU --- */
+        .favorite-btn {
+            position: absolute; top: 15px; right: 15px; z-index: 10;
+            background: white; border: 2px solid var(--border-color); border-radius: 50%;
+            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 18px; color: #ccc; transition: all 0.3s ease;
+            box-shadow: 2px 2px 0px var(--border-color);
+        }
+        .favorite-btn:hover { color: #ff4757; transform: scale(1.15); }
+        .favorite-btn.active { color: #ff4757; background: #ffe0e3; }
+        .favorite-btn.active i { animation: heartPop 0.4s ease; }
+        @keyframes heartPop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+
+        /* --- YILDIZ PUANI --- */
+        .product-rating { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+        .product-rating .stars { color: #fbbf24; font-size: 14px; display: flex; gap: 2px; }
+        .product-rating .rating-text { font-size: 12px; font-weight: 700; color: #888; }
+
+        /* --- YUKARI ÇIK BUTONU --- */
+        .back-to-top {
+            position: fixed; bottom: 30px; right: 30px; z-index: 900;
+            width: 50px; height: 50px; border-radius: 50%;
+            background: var(--primary-yellow); border: 3px solid var(--border-color);
+            box-shadow: var(--shadow-solid-sm); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; color: var(--text-color);
+            opacity: 0; visibility: hidden; transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        .back-to-top:hover { transform: translateY(-3px); box-shadow: 6px 6px 0px var(--border-color); }
+
+        /* --- ÇEREZ BİLDİRİMİ --- */
+        .cookie-banner {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 2800;
+            background: var(--text-color); color: white; padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center; gap: 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+            transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .cookie-banner.visible { transform: translateY(0); }
+        .cookie-text { font-size: 13px; font-weight: 600; line-height: 1.5; flex: 1; }
+        .cookie-text a { color: var(--primary-yellow); text-decoration: underline; }
+        .cookie-actions { display: flex; gap: 10px; flex-shrink: 0; }
+
+        /* --- TOAST BİLDİRİMLERİ --- */
+        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 5000; display: flex; flex-direction: column; gap: 10px; }
+        .toast {
+            background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-solid-sm); padding: 15px 20px; min-width: 280px;
+            display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 14px;
+            animation: toastSlideIn 0.4s ease, toastSlideOut 0.4s ease 2.6s forwards;
+        }
+        .toast-icon { font-size: 20px; }
+        .toast-success .toast-icon { color: #00a859; }
+        .toast-error .toast-icon { color: #ff4757; }
+        .toast-info .toast-icon { color: var(--primary-blue); }
+        @keyframes toastSlideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes toastSlideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(120%); opacity: 0; } }
+
+        /* --- BREADCRUMB --- */
+        .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #888; flex-wrap: wrap; }
+        .breadcrumb a { color: var(--primary-blue); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--text-color); }
+        .breadcrumb .separator { color: #ccc; font-size: 10px; }
+
+        /* --- SSS (FAQ) BÖLÜMÜ --- */
+        .faq-section { padding: 60px 5%; max-width: 900px; margin: 0 auto; }
+        .faq-title { text-align: center; font-size: 32px; font-weight: 900; margin-bottom: 10px; }
+        .faq-subtitle { text-align: center; font-size: 14px; font-weight: 600; color: #666; margin-bottom: 40px; }
+        .faq-item { background: var(--card-bg); border: 3px solid var(--border-color); border-radius: var(--radius-sm); margin-bottom: 12px; box-shadow: var(--shadow-solid-sm); overflow: hidden; }
+        .faq-question { padding: 18px 20px; font-weight: 800; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; list-style: none; }
+        .faq-question:hover { background: #f9f9f9; }
+        .faq-question::-webkit-details-marker { display: none; }
+        .faq-question i { transition: transform 0.3s ease; color: var(--primary-blue); }
+        .faq-item[open] .faq-question i { transform: rotate(180deg); }
+        .faq-answer { padding: 0 20px 18px 20px; font-size: 14px; font-weight: 600; color: #555; line-height: 1.7; border-top: 2px solid #eee; padding-top: 15px; }
+
+        /* --- SAYFA YÜKLEME ANİMASYONU --- */
+        .page-loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;
+            background: var(--bg-color); display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 20px;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .loader-brand { font-size: 36px; font-weight: 900; color: var(--text-color); }
+        .loader-spinner { width: 40px; height: 40px; border: 4px solid #eee; border-top: 4px solid var(--primary-blue); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* --- YENİ RESPONSIVE EKLEMELERİ --- */
+        @media (max-width: 768px) {
+            .announcement-bar { font-size: 11px; padding: 8px 40px 8px 15px; }
+            .cookie-banner { flex-direction: column; text-align: center; padding: 15px; }
+            .cookie-actions { width: 100%; justify-content: center; }
+            .back-to-top { bottom: 20px; right: 20px; width: 44px; height: 44px; font-size: 18px; }
+            .toast { min-width: unset; width: calc(100% - 40px); right: 20px; }
+            .toast-container { right: 0; left: 0; align-items: center; }
+            .faq-section { padding: 30px 4%; }
+            .faq-title { font-size: 24px; }
+            .breadcrumb { font-size: 11px; }
+            .favorite-btn { width: 35px; height: 35px; font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SAYFA YÜKLEME ANİMASYONU -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-brand">Sekerco.</div>
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- DUYURU ÇUBUĞU -->
+    <div class="announcement-bar" id="announcementBar">
+        <span>🚚 300₺ Üzeri Siparişlerde <strong>Ücretsiz Kargo!</strong> | 📦 Aynı Gün Kargoda</span>
+        <button class="close-announcement" onclick="document.getElementById('announcementBar').style.display='none'">&times;</button>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <a href="#" class="brand-logo">Sekerco.</a>
+        <nav class="nav-links" id="navMenu">
+            <a href="#">Ana Sayfa</a>
+            <div class="dropdown" onclick="toggleDropdown(this)">
+                <a href="javascript:void(0)" class="dropdown-toggle">Kategoriler <i class="fa-solid fa-chevron-down" style="font-size: 12px;"></i></a>
+                <div class="dropdown-menu">
+                    <a href="#">Kedi Ürünleri</a>
+                    <a href="#">Köpek Ürünleri</a>
+                    <a href="#">Kuş & Akvaryum</a>
+                    <a href="#">Aksesuarlar</a>
+                </div>
+            </div>
+            <a href="#">Markalar</a>
+            <a href="#">Kampanyalar</a>
+            <a href="#">İletişim</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="btn icon-btn" onclick="openSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="btn icon-btn" onclick="openProfile()"><i class="fa-solid fa-user"></i></button>
+            <button class="btn" onclick="openCart()">
+                <i class="fa-solid fa-cart-shopping"></i> (<span id="cart-counter">0</span>)
+            </button>
+            <button class="hamburger-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- MOBİL DRAWER MENÜ -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+    <div class="mobile-menu-drawer" id="mobileMenuDrawer">
+        <div class="mobile-menu-header">
+            <a href="#" class="brand-logo">Sekerco.</a>
+            <button class="mobile-menu-close" onclick="closeMobileMenu()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mobile-menu-body">
+            <div class="mobile-account-card" onclick="closeMobileMenu(); openProfile();">
+                <div class="mobile-account-icon"><i class="fa-solid fa-user"></i></div>
+                <div class="mobile-account-info">
+                    <strong>Hesabım</strong>
+                    <small>Siparişlerim · Adreslerim · Favoriler</small>
+                </div>
+                <i class="fa-solid fa-chevron-right mobile-account-arrow"></i>
+            </div>
+
+            <a href="#" class="mobile-menu-item" onclick="closeMobileMenu()">
+                <div class="mobile-menu-icon yellow"><i class="fa-solid fa-bolt"></i></div>
+                Fırsat Ürünleri
+                <i class="fa-solid fa-chevron-right mobile-menu-item-arrow"></i>
+            </a>
+            <a href="#" class="mobile-menu-item" onclick="closeMobileMenu()">
+                <div class="mobile-menu-icon blue"><i class="fa-solid fa-percent"></i></div>
+                Çok Al Az Öde
+                <i class="fa-solid fa-chevron-right mobile-menu-item-arrow"></i>
+            </a>
+            <a href="#" class="mobile-menu-item" onclick="closeMobileMenu()">
+                <div class="mobile-menu-icon purple"><i class="fa-solid fa-tags"></i></div>
+                Markalar
+                <i class="fa-solid fa-chevron-right mobile-menu-item-arrow"></i>
+            </a>
+            <a href="#" class="mobile-menu-item" onclick="closeMobileMenu()">
+                <div class="mobile-menu-icon green"><i class="fa-solid fa-newspaper"></i></div>
+                Kampanyalar
+                <i class="fa-solid fa-chevron-right mobile-menu-item-arrow"></i>
+            </a>
+            <a href="#" class="mobile-menu-item" onclick="closeMobileMenu()">
+                <div class="mobile-menu-icon red"><i class="fa-solid fa-cat"></i></div>
+                Kedi Ürünleri
+                <i class="fa-solid fa-chevron-right mobile-menu-item-arrow"></i>
+            </a>
+            <a href="#" class="mobile-menu-item" onclick="closeMobileMenu()">
+                <div class="mobile-menu-icon blue"><i class="fa-solid fa-dog"></i></div>
+                Köpek Ürünleri
+                <i class="fa-solid fa-chevron-right mobile-menu-item-arrow"></i>
+            </a>
+
+            <div class="mobile-quick-title">Hızlı Bağlantılar</div>
+            <div class="mobile-quick-links">
+                <a href="#" class="mobile-quick-link" onclick="closeMobileMenu()"><i class="fa-solid fa-headset"></i> İletişim</a>
+                <a href="#" class="mobile-quick-link" onclick="closeMobileMenu()"><i class="fa-solid fa-truck-fast"></i> Sipariş Takibi</a>
+                <a href="#" class="mobile-quick-link" onclick="closeMobileMenu()"><i class="fa-solid fa-star"></i> Puan Kazanma</a>
+                <a href="#" class="mobile-quick-link" onclick="closeMobileMenu()"><i class="fa-solid fa-file-contract"></i> Yetki Belgeleri</a>
+            </div>
+
+            <a href="#" class="mobile-whatsapp-bar" onclick="closeMobileMenu()">
+                <div class="wa-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <div class="wa-text">
+                    <strong>Sipariş Destek Hattı</strong>
+                    <small>WhatsApp üzerinden anında yardım</small>
+                </div>
+                <i class="fa-solid fa-chevron-right wa-arrow"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- TAM SAYFA ARAMA LAYER -->
+    <div class="search-overlay" id="searchOverlay">
+        <button style="position:absolute; top:30px; right:40px; font-size:32px; background:none; border:none; cursor:pointer;" onclick="closeSearch()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="search-container">
+            <input type="text" placeholder="Ne aramıştınız? (Örn: kedi maması)" id="searchInput">
+            <button class="btn btn-blue" onclick="closeSearch()"><i class="fa-solid fa-magnifying-glass"></i> Ara</button>
+        </div>
+    </div>
+
+    <!-- HERO BANNER -->
+    <section class="hero-section">
+        <span class="hero-tag"><i class="fa-solid fa-bolt"></i> Özel Fırsat!</span>
+        <h1 class="hero-title">Patili Dostlarınız İçin <br>En İyisi.</h1>
+        <p style="font-weight: 600; color: #444;">Seçili mamalarda ve yataklarda sepette ekstra indirim fırsatını kaçırmayın.</p>
+        <button class="btn btn-blue" onclick="document.getElementById('products-section').scrollIntoView({behavior: 'smooth'})">Hemen Keşfet</button>
+    </section>
+
+    <!-- ANA SAYFA İÇERİKLERİ -->
+    <main class="container">
+        <!-- GÜVEN KARTLARI -->
+        <div class="features-grid">
+            <div class="feature-box"><div class="feature-icon"><i class="fa-solid fa-rocket"></i></div><div class="feature-text"><h4>Hızlı Kargo</h4><p>Saat 14:00'e kadar aynı gün kargoda.</p></div></div>
+            <div class="feature-box"><div class="feature-icon"><i class="fa-solid fa-lock"></i></div><div class="feature-text"><h4>Güvenli Ödeme</h4><p>256-bit SSL ve 3D Secure altyapısı.</p></div></div>
+            <div class="feature-box"><div class="feature-icon"><i class="fa-solid fa-certificate"></i></div><div class="feature-text"><h4>Orijinal Ürün</h4><p>%100 yetkili satıcı garantisi.</p></div></div>
+            <div class="feature-box"><div class="feature-icon" style="color:var(--whatsapp-green);"><i class="fa-brands fa-whatsapp"></i></div><div class="feature-text"><h4>7/24 Destek</h4><p>WhatsApp destek hattı yayında.</p></div></div>
+        </div>
+
+        <!-- KATEGORİLER (Pill Shape) -->
+        <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> Kategorileri Keşfet</h2>
+        <div class="category-grid">
+            <div class="category-card"><div>Kedi Mamaları</div><div class="category-icon-wrapper"><i class="fa-solid fa-cat"></i></div></div>
+            <div class="category-card"><div>Köpek Mamaları</div><div class="category-icon-wrapper"><i class="fa-solid fa-dog"></i></div></div>
+            <div class="category-card"><div>Oyuncaklar</div><div class="category-icon-wrapper"><i class="fa-solid fa-baseball"></i></div></div>
+            <div class="category-card"><div>Aksesuarlar</div><div class="category-icon-wrapper"><i class="fa-solid fa-house-chimney"></i></div></div>
+        </div>
+
+        <!-- ÜRÜN SLIDER -->
+        <h2 class="section-title" id="products-section"><i class="fa-solid fa-star" style="color: var(--primary-yellow);"></i> En Çok Satanlar</h2>
+        <div class="slider-container">
+            <!-- DİKKAT: Ürün kartına (resim ve açıklama kısmına) tıklandığında Detay sayfası açılacak şekilde JS eklendi -->
+            <div class="product-card" onclick="openProductPage('p1', 'N&D Düşük Tahıllı Tavuklu Kedi Maması 10 Kg', 1299, 1625, 'N&D', '%20 İNDİRİM', 'N&D Düşük Tahıllı Tavuklu ve Narlı Kısırlaştırılmış Kedi Maması, İtalyan veteriner hekimleri tarafından patili dostlarımızın en sağlıklı şekilde beslenmesi için formüle edilmiştir.')">
+                <div class="product-badges"><span class="badge badge-discount">%20 İndirim</span><span class="badge badge-new">Yeni</span></div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)"><i class="fa-regular fa-heart"></i></button>
+                <div class="product-image">N&D Kedi Maması</div>
+                <div class="product-description">
+                    <h3 class="product-detail-title">N&D Düşük Tahıllı Tavuklu Kedi Maması 10 Kg</h3>
+                    <div class="product-price-container"><span class="product-old-price">1.625 ₺</span><p class="product-price">1.299 ₺</p></div>
+                    <div class="product-rating"><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><span class="rating-text">(128)</span></div>
+                </div>
+                <!-- DİKKAT: Butondaki event yayılmasını engelliyoruz (stopPropagation) ki sadece sepete eklensin, detay açılmasın -->
+                <button class="btn" onclick="event.stopPropagation(); addToCart('p1', 'N&D Düşük Tahıllı Kedi Maması 10 Kg', 1299)"><i class="fa-solid fa-cart-plus"></i> Sepete Ekle</button>
+            </div>
+            
+            <div class="product-card" onclick="openProductPage('p2', 'Ortopedik Köpek Yatağı (Büyük Boy)', 2499, 2940, 'SEKERCO', '%15 İNDİRİM', 'Dostunuzun omurga sağlığını koruyan ortopedik sünger yapısı ve yıkanabilir antibakteriyel kılıfı ile premium konfor.')">
+                <div class="product-badges"><span class="badge badge-discount">%15 İndirim</span></div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)"><i class="fa-regular fa-heart"></i></button>
+                <div class="product-image">Ortopedik Yatak</div>
+                <div class="product-description">
+                    <h3 class="product-detail-title">Ortopedik Köpek Yatağı (Büyük Boy)</h3>
+                    <div class="product-price-container"><span class="product-old-price">2.940 ₺</span><p class="product-price">2.499 ₺</p></div>
+                    <div class="product-rating"><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div><span class="rating-text">(84)</span></div>
+                </div>
+                <button class="btn" onclick="event.stopPropagation(); addToCart('p2', 'Ortopedik Köpek Yatağı', 2499)"><i class="fa-solid fa-cart-plus"></i> Sepete Ekle</button>
+            </div>
+            
+            <div class="product-card" onclick="openProductPage('p3', 'Akıllı Otomatik Mama Kabı (Kameralı)', 3150, 3500, 'XIAOMI', '%10 İNDİRİM', 'Siz evde yokken bile dostunuzu takip edin ve porsiyonları mobil uygulama üzerinden yönetin.')">
+                <div class="product-badges"><span class="badge badge-discount">%10 İndirim</span></div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)"><i class="fa-regular fa-heart"></i></button>
+                <div class="product-image">Mama Kabı</div>
+                <div class="product-description">
+                    <h3 class="product-detail-title">Akıllı Otomatik Mama Kabı (Kameralı)</h3>
+                    <div class="product-price-container"><span class="product-old-price">3.500 ₺</span><p class="product-price">3.150 ₺</p></div>
+                    <div class="product-rating"><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div><span class="rating-text">(42)</span></div>
+                </div>
+                <button class="btn" onclick="event.stopPropagation(); addToCart('p3', 'Akıllı Mama Kabı', 3150)"><i class="fa-solid fa-cart-plus"></i> Sepete Ekle</button>
+            </div>
+            
+            <div class="product-card" onclick="openProductPage('p4', 'Moochie Ton Balıklı Kedi Çorbası 40 gr', 35, 45, 'MOOCHIE', '%22 İNDİRİM', 'Sıvı tüketimini sevmeyen kediler için iştah açıcı ve besleyici lezzet.')">
+                <div class="product-badges"><span class="badge badge-new">Yeni</span></div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)"><i class="fa-regular fa-heart"></i></button>
+                <div class="product-image">Moochie Çorba</div>
+                <div class="product-description">
+                    <h3 class="product-detail-title">Moochie Ton Balıklı Kedi Çorbası 40 gr</h3>
+                    <div class="product-price-container"><span class="product-old-price" style="display:none;"></span><p class="product-price">35 ₺</p></div>
+                    <div class="product-rating"><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><span class="rating-text">(256)</span></div>
+                </div>
+                <button class="btn" onclick="event.stopPropagation(); addToCart('p4', 'Moochie Ton Balıklı Kedi Çorbası 40 gr', 35)"><i class="fa-solid fa-cart-plus"></i> Sepete Ekle</button>
+            </div>
+        </div>
+
+        <!-- MARKALAR -->
+        <h2 class="section-title"><i class="fa-solid fa-award"></i> Popüler Markalar</h2>
+        <div class="brands-grid">
+            <div class="brand-card">Pro Plan</div>
+            <div class="brand-card">Royal Canin</div>
+            <div class="brand-card">N&D</div>
+            <div class="brand-card">Acana</div>
+            <div class="brand-card">Hills</div>
+            <div class="brand-card">Orijen</div>
+        </div>
+
+        <!-- MÜŞTERİ YORUMLARI PANELİ (Pet Shop Verileriyle) -->
+        <div class="reviews-header">
+            <div class="reviews-header-left">
+                <small>Gerçek Deneyimler</small>
+                <h2>Müşteri Yorumları</h2>
+            </div>
+            <div class="reviews-header-right">
+                <a href="#">Tüm Yorumlar <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="reviews-grid">
+            <!-- Özet Kartı -->
+            <div class="review-summary-card">
+                <div class="review-score">4,9<span>/5</span></div>
+                <div class="review-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <div class="review-count-text">3.482 doğrulanmış değerlendirme</div>
+                
+                <div style="margin-top: 10px; margin-bottom: 20px;">
+                    <div class="progress-row"><span>5<i class="fa-solid fa-star" style="font-size:10px;"></i></span><div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 86%;"></div></div><span class="progress-pct">%86</span></div>
+                    <div class="progress-row"><span>4<i class="fa-solid fa-star" style="font-size:10px;"></i></span><div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 9%;"></div></div><span class="progress-pct">%9</span></div>
+                    <div class="progress-row"><span>3<i class="fa-solid fa-star" style="font-size:10px;"></i></span><div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 3%;"></div></div><span class="progress-pct">%3</span></div>
+                    <div class="progress-row"><span>2<i class="fa-solid fa-star" style="font-size:10px;"></i></span><div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 1%;"></div></div><span class="progress-pct">%1</span></div>
+                    <div class="progress-row"><span>1<i class="fa-solid fa-star" style="font-size:10px;"></i></span><div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 1%;"></div></div><span class="progress-pct">%1</span></div>
+                </div>
+                <button class="btn btn-dark" style="width: 100%;">Yorum Yaz</button>
+            </div>
+
+            <!-- Yorum Kartı 1 -->
+            <div class="review-card">
+                <div>
+                    <div class="review-author-row">
+                        <div class="author-avatar">EY</div>
+                        <div class="author-info">
+                            <div class="author-name">Elif Y. <span class="author-verified"><i class="fa-solid fa-circle-check"></i> Doğrulanmış</span></div>
+                            <div class="author-meta">12 Mayıs 2026 · İstanbul</div>
+                        </div>
+                    </div>
+                    <div class="review-stars" style="margin-top: 15px;">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="review-text">
+                        Siparişim ertesi gün elime ulaştı. Kargo çok özenliydi ve içerisinden çıkan minik hediye için çok teşekkür ederiz! Sekerco'dan ilk kez aldım ama son olmayacak.
+                    </p>
+                </div>
+                <div>
+                    <div class="product-reference">
+                        <div class="product-ref-logo"><i class="fa-solid fa-cat"></i></div>
+                        <div class="product-ref-detail">
+                            <span class="product-ref-brand">N&D</span>
+                            <span class="product-ref-name">Düşük Tahıllı Kedi Maması 10 Kg</span>
+                        </div>
+                    </div>
+                    <div class="review-actions">
+                        <span class="review-helpful-q">Bu yorum yardımcı oldu mu?</span>
+                        <div class="review-thumbs">
+                            <button class="thumb-btn"><i class="fa-solid fa-thumbs-up"></i> 24</button>
+                            <button class="thumb-btn"><i class="fa-solid fa-thumbs-down"></i> 0</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Yorum Kartı 2 -->
+            <div class="review-card">
+                <div>
+                    <div class="review-author-row">
+                        <div class="author-avatar">MK</div>
+                        <div class="author-info">
+                            <div class="author-name">Mert K. <span class="author-verified"><i class="fa-solid fa-circle-check"></i> Doğrulanmış</span></div>
+                            <div class="author-meta">8 Mayıs 2026 · Ankara</div>
+                        </div>
+                    </div>
+                    <div class="review-stars" style="margin-top: 15px;">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="review-text">
+                        Kedim Gimcat macununa bayılıyor! Fiyatlar piyasaya göre çok uygun. Ayrıca WhatsApp destek hattından mama seçimi konusunda çok yardımcı oldular.
+                    </p>
+                </div>
+                <div>
+                    <div class="product-reference">
+                        <div class="product-ref-logo"><i class="fa-solid fa-paw"></i></div>
+                        <div class="product-ref-detail">
+                            <span class="product-ref-brand">GIMCAT</span>
+                            <span class="product-ref-name">Multi Vitamin Paste Kedi Macunu</span>
+                        </div>
+                    </div>
+                    <div class="review-actions">
+                        <span class="review-helpful-q">Bu yorum yardımcı oldu mu?</span>
+                        <div class="review-thumbs">
+                            <button class="thumb-btn"><i class="fa-solid fa-thumbs-up"></i> 18</button>
+                            <button class="thumb-btn"><i class="fa-solid fa-thumbs-down"></i> 1</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- INSTAGRAM REELS / 9:16 İÇERİKLERİ -->
+        <div class="ig-header">
+            <h2>Sekerco Instagram</h2>
+            <p>@sekerco hesabından bizi takip etmeyi unutmayın!</p>
+        </div>
+
+        <div class="ig-grid">
+            <div class="ig-card">
+                <div class="ig-top">
+                    <div class="ig-brand"><div class="ig-logo">S</div> sekerco</div>
+                    <button class="ig-follow-btn">Takip Et</button>
+                </div>
+                <div class="ig-bottom"><div class="ig-views"><i class="fa-solid fa-play"></i> 618.4M</div></div>
+            </div>
+
+            <div class="ig-card">
+                <div class="ig-top">
+                    <div class="ig-brand"><div class="ig-logo">S</div> sekerco</div>
+                    <button class="ig-follow-btn">Takip Et</button>
+                </div>
+                <div class="ig-bottom"><div class="ig-views"><i class="fa-solid fa-play"></i> 158.4M</div></div>
+            </div>
+
+            <div class="ig-card">
+                <div class="ig-top">
+                    <div class="ig-brand"><div class="ig-logo">S</div> sekerco</div>
+                    <button class="ig-follow-btn">Takip Et</button>
+                </div>
+                <div class="ig-bottom"><div class="ig-views"><i class="fa-solid fa-play"></i> 475.2M</div></div>
+            </div>
+
+            <div class="ig-card">
+                <div class="ig-top">
+                    <div class="ig-brand"><div class="ig-logo">S</div> sekerco</div>
+                    <button class="ig-follow-btn">Takip Et</button>
+                </div>
+                <div class="ig-bottom"><div class="ig-views"><i class="fa-solid fa-play"></i> 350.8M</div></div>
+            </div>
+        </div>
+
+        <!-- SSS (FAQ) BÖLÜMÜ -->
+        <section class="faq-section">
+            <h2 class="faq-title"><i class="fa-solid fa-circle-question"></i> Sıkça Sorulan Sorular</h2>
+            <p class="faq-subtitle">Merak edilen konularda sizin için yanıtlar hazırladık.</p>
+
+            <details class="faq-item">
+                <summary class="faq-question">Siparişim ne zaman kargoya verilir? <i class="fa-solid fa-chevron-down"></i></summary>
+                <div class="faq-answer">Saat 14:00'e kadar verilen siparişler aynı gün kargoya teslim edilir. Hafta sonu verilen siparişler pazartesi günü kargoya verilmektedir.</div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">Kargo ücreti ne kadar? <i class="fa-solid fa-chevron-down"></i></summary>
+                <div class="faq-answer">300₺ ve üzeri siparişlerinizde kargo tamamen ücretsizdir. 300₺ altı siparişlerde sabit 39,90₺ kargo ücreti uygulanmaktadır.</div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">Ürünleri iade edebilir miyim? <i class="fa-solid fa-chevron-down"></i></summary>
+                <div class="faq-answer">Evet! Tüm ürünlerimizde 14 gün koşulsuz iade hakkınız bulunmaktadır. Açılmamış ve kullanılmamış ürünleri kolayca iade edebilirsiniz.</div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">Ödeme seçenekleriniz nelerdir? <i class="fa-solid fa-chevron-down"></i></summary>
+                <div class="faq-answer">Kredi kartı, banka kartı ve havale/EFT ile ödeme yapabilirsiniz. Tüm ödemeler iyzico altyapısı ile 256-bit SSL ve 3D Secure güvenliği altında gerçekleştirilir.</div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">Ürünleriniz orijinal mi? <i class="fa-solid fa-chevron-down"></i></summary>
+                <div class="faq-answer">Kesinlikle evet! Tüm ürünlerimiz yetkili distribütörlerden temin edilmektedir. Her ürünümüz %100 orijinal garantisi ile satılmaktadır.</div>
+            </details>
+        </section>
+
+    </main>
+
+    <!-- BÜLTEN (NEWSLETTER) -->
+    <section class="newsletter-section">
+        <h2 class="newsletter-title"><i class="fa-solid fa-envelope-open-text"></i> Fırsatlardan İlk Sen Haberdar Ol!</h2>
+        <p style="font-weight: 600; margin-top:-10px;">Sürpriz indirimler ve yeni ürünler e-posta kutuna gelsin.</p>
+        <div class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="E-posta adresinizi girin...">
+            <button class="btn" style="box-shadow: 3px 3px 0px var(--border-color); font-size:16px;">Abone Ol</button>
+        </div>
+    </section>
+
+    <!-- ========================================================
+       YENİ: DETAYLI ÜRÜN İNCELEME SAYFASI (IMAGE_9B2447.PNG Referansı)
+       ======================================================== -->
+    <div class="product-page-overlay" id="productPageOverlay">
+        <div class="product-page-header">
+            <button class="btn btn-sm" onclick="closeProductPage()"><i class="fa-solid fa-arrow-left"></i> Alışverişe Dön</button>
+            <div class="breadcrumb">
+                <a href="#" onclick="closeProductPage()">Ana Sayfa</a>
+                <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <a href="#">Kategoriler</a>
+                <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <span id="pd-breadcrumb-name">Ürün</span>
+            </div>
+        </div>
+        
+        <div class="product-detail-container">
+            <!-- Sol: Ürün Görselleri (Pembe Vurgulu Kutu) -->
+            <div class="product-detail-left">
+                <div class="product-detail-main-img-box">
+                    <span class="badge badge-dark" style="position: absolute; top:30px; left:30px; font-size:14px; z-index:10;">YENİ</span>
+                    <div class="product-detail-inner-img" id="pd-main-img">Görsel Alanı</div>
+                </div>
+                <div class="product-detail-thumbnails">
+                    <div class="product-detail-thumb active">İmaj 1</div>
+                    <div class="product-detail-thumb">İmaj 2</div>
+                </div>
+            </div>
+            
+            <!-- Sağ: Ürün Bilgileri -->
+            <div class="product-detail-right">
+                <span class="badge badge-discount" id="pd-brand" style="font-size: 14px; margin-bottom:10px;">MARKA</span>
+                <h1 class="product-detail-title-large" id="pd-title">ÜRÜN BAŞLIĞI</h1>
+                
+                <div class="product-detail-price-box">
+                    <span class="product-old-price" id="pd-old-price">0.00 TL</span>
+                    <span class="product-price" id="pd-new-price">0.00 TL</span>
+                </div>
+                
+                <span class="badge badge-green" id="pd-discount" style="font-size:14px; padding: 6px 12px; margin-top:5px;">%0 İNDİRİM</span>
+                <p style="font-size: 12px; font-weight:700; color:#555; margin-top:10px;">Vergiler dahil.</p>
+
+                <!-- Sayaç Banner -->
+                <div class="product-detail-countdown">
+                    <strong>06:03:50</strong> İÇİNDE SİPARİŞ VER, <u>BUGÜN</u> KARGOYA VERELİM!
+                </div>
+
+                <!-- Sepete Ekle Butonu -->
+                <button class="btn btn-green" style="width: 100%; box-shadow: 6px 6px 0px var(--border-color); border: 4px solid var(--border-color); font-size: 20px; font-weight:900;" onclick="addToCartFromDetail()">
+                    SEPETE EKLE
+                </button>
+
+                <!-- Akordeon Kargo Bilgisi -->
+                <details class="product-accordion">
+                    <summary>KARGO & İADE <i class="fa-solid fa-chevron-down"></i></summary>
+                    <div class="product-accordion-content">Siparişleriniz aynı gün kargoya teslim edilir. 14 gün içerisinde koşulsuz şartsız iade edebilirsiniz.</div>
+                </details>
+
+                <!-- Ürün Açıklaması -->
+                <div class="product-description" id="pd-desc" style="margin-top: 30px;">
+                    Ürün detay açıklaması buraya gelecek.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SAĞDAN AÇILAN SEPET ÇEKMECESİ -->
+    <div class="cart-drawer-overlay" id="cartOverlay" onclick="closeCart()"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h2>Sepetim <i class="fa-solid fa-cart-shopping"></i></h2>
+            <button class="close-btn" onclick="closeCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-body" id="cart-body-content">
+            <div style="text-align:center; margin-top:40px; font-weight:700;">Sepetiniz boş.</div>
+        </div>
+        <div class="cart-footer" id="cart-footer-content" style="display: none;">
+            <div class="cart-total"><span>Ara Toplam:</span><span id="cart-total-price">0 ₺</span></div>
+            <button class="btn btn-blue" style="width: 100%;" onclick="goToCartPage()">Güvenli Ödeme <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+
+    <!-- DETAYLI SEPET SAYFASI (IMAGE_9B4FE2.PNG) -->
+    <div class="cart-page-overlay" id="detailedCartPage">
+        <div style="max-width: 1300px; margin: 0 auto 30px auto; display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap:15px;">
+            <h1 style="font-size: 32px; font-weight:800;"><i class="fa-solid fa-basket-shopping" style="color: var(--primary-blue);"></i> Alışveriş Sepetim</h1>
+            <button class="btn btn-sm" onclick="closeCartPage()"><i class="fa-solid fa-xmark"></i> Kapat</button>
+        </div>
+
+        <div class="cart-page-container">
+            <div class="cart-page-main">
+                <div class="cart-page-list-box">
+                    <div id="cart-page-items-list"></div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 25px; flex-wrap: wrap; gap:15px;">
+                        <button class="btn btn-sm" style="background:#fff; border-color:#ccc; box-shadow:none;"><i class="fa-regular fa-heart"></i> Alışveriş Listeme Ekle</button>
+                        <button class="btn btn-sm" style="background:#fff; border-color:red; color:red; box-shadow:none;" onclick="clearWholeCart()"><i class="fa-regular fa-trash-can"></i> Sepeti Temizle</button>
+                    </div>
+                </div>
+
+                <div class="special-campaigns-section">
+                    <h3 style="font-weight: 800; font-size:16px; text-transform:uppercase; letter-spacing:1px;">Sepete Özel Kampanyalar</h3>
+                    <div class="campaign-banner-box">
+                        <div style="width: 50px; height: 50px; background: var(--primary-yellow); border-radius: 8px; display:flex; align-items:center; justify-content:center; border:2px solid var(--border-color);"><i class="fa-solid fa-gift" style="font-size:24px;"></i></div>
+                        <div style="flex:1; font-size:13px; font-weight:700;">
+                            N&D 10 Kg Kedi Mamalarına 3 Adet Moochie Kedi Çorbası Hediye!
+                            <p style="color:#888; font-size:11px; margin-top:3px;">Kampanya sınırlı stoklarla ve belirli tarihler arasında geçerlidir.</p>
+                        </div>
+                        <span class="campaign-active-badge"><i class="fa-solid fa-check"></i> AKTİF</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="sidebar-action-card" onclick="closeCartPage()">
+                    <span>Alışverişe Geri Dön</span> <i class="fa-solid fa-chevron-right" style="color:var(--primary-blue);"></i>
+                </div>
+
+                <div class="sidebar-summary-box">
+                    <div class="summary-row"><span>Sepet Toplamı:</span><span id="page-subtotal">0 ₺</span></div>
+                    <div class="summary-row" style="color:#666;"><span>Kampanya İndirimi:</span><span id="page-discount">-0 ₺</span></div>
+                    <div class="summary-row"><span>Kargo Ücreti:</span><span style="color:#00a859; font-weight:800;">ÜCRETSİZ</span></div>
+                    <div class="summary-row total-row"><span>Genel Toplam:</span><span style="color: var(--primary-blue);" id="page-total">0 ₺</span></div>
+                </div>
+
+                <div class="sidebar-action-card"><span>Kupon Kodu Ekle</span> <i class="fa-solid fa-chevron-right" style="color:#ccc;"></i></div>
+                <div class="sidebar-action-card"><span>Alışveriş Notu</span> <i class="fa-solid fa-chevron-right" style="color:#ccc;"></i></div>
+
+                <div class="warning-notice-box">
+                    <strong>Önemli Uyarı:</strong> Kargo firmaları adına gönderilen ve kargo teslimat sürecini değiştirmeye yönelik e-postalara itibar etmeyiniz.
+                </div>
+
+                <button class="btn btn-green" style="width: 100%; font-size:16px; padding:15px; border:3px solid var(--border-color); box-shadow: 4px 4px 0px var(--border-color); font-weight:900;" onclick="goToCheckout()">
+                    <i class="fa-solid fa-credit-card"></i> SATIN AL
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAM SAYFA ÖDEME (CHECKOUT) EKRANI -->
+    <div class="checkout-overlay" id="checkoutPage">
+        <div style="max-width: 1100px; margin: 0 auto 30px auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px;">
+            <h1 style="font-size: 32px; font-weight:800;"><i class="fa-regular fa-credit-card"></i> Güvenli Ödeme Aşaması</h1>
+            <button class="btn btn-sm" onclick="closeCheckout()"><i class="fa-solid fa-arrow-left"></i> Geri Dön</button>
+        </div>
+        <div class="checkout-container">
+            <div class="checkout-box">
+                <h2 style="margin-bottom:20px; font-weight:900;">Teslimat & Fatura</h2>
+                <div class="form-group"><label>Adınız Soyadınız</label><input type="text" placeholder="Adınız Soyadınız"></div>
+                <div class="form-group"><label>Açık Adres</label><input type="text" placeholder="Teslimat adresini giriniz"></div>
+                <h2 style="margin-top:30px; margin-bottom:20px; font-weight:900;">Kart Bilgileri</h2>
+                <div class="form-group"><label>Kart Numarası</label><input type="text" placeholder="0000 0000 0000 0000"></div>
+                <button class="btn btn-blue" style="width:100%; font-size:16px;">Siparişi Onayla (<span class="checkout-sum-price">0 ₺</span>)</button>
+            </div>
+            <div class="checkout-box" style="background:#fafafa; height:fit-content;">
+                <h2 style="font-weight:900;">Sipariş Özeti</h2>
+                <div style="display:flex; justify-content:space-between; margin-top:20px; font-weight:800; font-size:18px;"><span>Toplam Tutar:</span><span class="checkout-sum-price" style="color:var(--primary-blue);">0 ₺</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFİL OVERLAY -->
+    <div class="profile-overlay" id="profilePage">
+        <div class="profile-header">
+            <h1 style="font-size:32px; font-weight:900;"><i class="fa-solid fa-user"></i> Profil Panelim</h1>
+            <button class="btn btn-sm" onclick="closeProfile()"><i class="fa-solid fa-house"></i> Kapat</button>
+        </div>
+        <div class="profile-layout">
+            <div class="profile-sidebar">
+                <button class="profile-nav-btn active"><i class="fa-solid fa-box-open"></i> Siparişlerim</button>
+                <button class="profile-nav-btn"><i class="fa-solid fa-user-pen"></i> Bilgilerim</button>
+                <button class="profile-nav-btn"><i class="fa-solid fa-location-dot"></i> Adreslerim</button>
+                <button class="profile-nav-btn" style="color:red; border-color:red;"><i class="fa-solid fa-right-from-bracket"></i> Çıkış</button>
+            </div>
+            <div class="profile-content-box">
+                <h2 style="font-weight:900; margin-bottom:20px;">Sipariş Geçmişi</h2>
+                <div class="order-card">
+                    <div><strong style="font-size:15px;">Sipariş #SKR-1092</strong><br><small style="color:#666; font-weight:700;">24 Mayıs 2026</small></div>
+                    <strong style="color: var(--primary-blue); font-size:18px;">1.299 ₺</strong>
+                    <span style="background: #b8e994; color: #1e5a00; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 800; border:1px solid #1e5a00;"><i class="fa-solid fa-truck-fast"></i> Teslim Edildi</span>
+                </div>
+                <div class="order-card">
+                    <div><strong style="font-size:15px;">Sipariş #SKR-0841</strong><br><small style="color:#666; font-weight:700;">10 Nisan 2026</small></div>
+                    <strong style="color: var(--primary-blue); font-size:18px;">3.150 ₺</strong>
+                    <span style="background: #b8e994; color: #1e5a00; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 800; border:1px solid #1e5a00;"><i class="fa-solid fa-truck-fast"></i> Teslim Edildi</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEGA FOOTER -->
+    <footer class="mega-footer">
+        <div class="footer-grid">
+            <div class="footer-col footer-brand-info">
+                <a href="#" class="brand-logo" style="margin-bottom:15px; display:inline-block;">Sekerco.</a>
+                <p>2018'den beri patili dostlarınız için doğru ürünü, doğru fiyata sunuyoruz.</p>
+                <span class="social-title">BİZİ TAKİP EDİN</span>
+                <div class="social-icons">
+                    <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col footer-accordion-col">
+                <h4 onclick="toggleFooterAccordion(this)">Kurumsal</h4>
+                <ul><li><a href="#">Biz Kimiz?</a></li><li><a href="#">İletişim</a></li><li><a href="#">Marka Yetki Belgeleri</a></li><li><a href="#">Kampanyalar</a></li></ul>
+            </div>
+            <div class="footer-col footer-accordion-col">
+                <h4 onclick="toggleFooterAccordion(this)">Faydalı Linkler</h4>
+                <ul><li><a href="#">Sipariş Takibi</a></li><li><a href="#">Kargo Bilgileri</a></li><li><a href="#">İade Koşulları</a></li><li><a href="#">Orijinal Ürün Sorgulama</a></li></ul>
+            </div>
+            <div class="footer-col footer-accordion-col">
+                <h4 onclick="toggleFooterAccordion(this)">Üye İşlemleri</h4>
+                <ul><li><a href="#">Giriş Yap</a></li><li><a href="#">Üye Ol</a></li><li><a href="#">Favorilerim</a></li><li><a href="#">Pati Puanlarım</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Müşteri Hizmetleri</h4>
+                <a href="#" class="whatsapp-btn"><i class="fa-brands fa-whatsapp" style="font-size:24px;"></i> <div><strong>WhatsApp Destek</strong></div></a>
+                <div class="contact-info-item"><i class="fa-solid fa-phone contact-icon"></i><div class="contact-text"><small>TELEFON</small><span>0 (544) 646 42 40</span></div></div>
+                <div class="contact-info-item"><i class="fa-solid fa-envelope contact-icon"></i><div class="contact-text"><small>E-POSTA</small><span>destek@sekerco.com</span></div></div>
+            </div>
+        </div>
+        <div class="payment-strip">
+            <span class="payment-title">GÜVENLİ ÖDEME</span>
+            <span class="payment-logo-box">iyzico</span><span class="payment-logo-box">Mastercard</span><span class="payment-logo-box">VISA</span>
+            <span class="payment-logo-box payment-logo-green"><i class="fa-solid fa-lock"></i> 3D Secure</span>
+            <span class="payment-logo-box payment-logo-green"><i class="fa-solid fa-lock"></i> 256-bit SSL</span>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Sekerco · Nurşen ve ekibi ile hazırlandı.</div>
+            <div class="footer-bottom-links"><a href="#">Mesafeli Satış Sözleşmesi</a><a href="#">KVKK Aydınlatma Metni</a></div>
+        </div>
+    </footer>
+
+    <!-- YUKARI ÇIK BUTONU -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- TOAST BİLDİRİM ALANI -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ÇEREZ BİLDİRİMİ -->
+    <div class="cookie-banner" id="cookieBanner">
+        <p class="cookie-text">🍪 Bu web sitesi, deneyiminizi geliştirmek için çerezleri kullanmaktadır. Siteyi kullanmaya devam ederek <a href="#">Çerez Politikamızı</a> ve <a href="#">KVKK Aydınlatma Metnimizi</a> kabul etmiş olursunuz.</p>
+        <div class="cookie-actions">
+            <button class="btn btn-sm" onclick="acceptCookies()">Kabul Et</button>
+            <button class="btn btn-sm" style="background:transparent; color:white; border-color:white;" onclick="acceptCookies()">Reddet</button>
+        </div>
+    </div>
+
+    <!-- INTERACTION MANTIĞI -->
+    <script>
+        function toggleMobileMenu() {
+            if(window.innerWidth <= 768) {
+                document.getElementById('mobileMenuDrawer').classList.add('active');
+                document.getElementById('mobileMenuOverlay').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.getElementById('navMenu').classList.toggle('active');
+            }
+        }
+        function closeMobileMenu() {
+            document.getElementById('mobileMenuDrawer').classList.remove('active');
+            document.getElementById('mobileMenuOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        function toggleDropdown(e) { if(window.innerWidth <= 768) e.classList.toggle('active'); }
+        function toggleFooterAccordion(el) {
+            if(window.innerWidth > 768) return;
+            var col = el.parentElement;
+            col.classList.toggle('open');
+        }
+        
+        function openSearch() { document.getElementById('searchOverlay').style.display='flex'; setTimeout(() => document.getElementById('searchInput').focus(), 100); document.body.style.overflow='hidden';}
+        function closeSearch() { document.getElementById('searchOverlay').style.display='none'; document.body.style.overflow='auto';}
+        
+        function openProfile() { document.getElementById('profilePage').style.display='block'; document.body.style.overflow = 'hidden';}
+        function closeProfile() { document.getElementById('profilePage').style.display='none'; document.body.style.overflow = 'auto';}
+        
+        function openCart() { document.getElementById('cartDrawer').classList.add('active'); document.getElementById('cartOverlay').classList.add('active'); document.body.style.overflow = 'hidden';}
+        function closeCart() { document.getElementById('cartDrawer').classList.remove('active'); document.getElementById('cartOverlay').classList.remove('active'); document.body.style.overflow = 'auto';}
+
+        function goToCartPage() {
+            if(cartData.length === 0) return;
+            closeCart();
+            document.getElementById('detailedCartPage').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCartPage() {
+            document.getElementById('detailedCartPage').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        function goToCheckout() {
+            document.getElementById('detailedCartPage').style.display = 'none';
+            document.getElementById('checkoutPage').style.display = 'block';
+        }
+        function closeCheckout() {
+            document.getElementById('checkoutPage').style.display = 'none';
+            document.getElementById('detailedCartPage').style.display = 'block';
+        }
+
+        /* --- ÜRÜN DETAY SAYFASI (YENİ) --- */
+        let currentDetailItem = null;
+
+        function openProductPage(id, name, currentPrice, oldPrice, brand, discountText, descText) {
+            currentDetailItem = { id, name, price: currentPrice };
+            
+            document.getElementById('pd-title').innerText = name;
+            document.getElementById('pd-brand').innerText = brand;
+            document.getElementById('pd-new-price').innerText = currentPrice.toLocaleString('tr-TR') + ' ₺';
+            
+            if(oldPrice && oldPrice > 0) {
+                document.getElementById('pd-old-price').style.display = 'inline-block';
+                document.getElementById('pd-old-price').innerText = oldPrice.toLocaleString('tr-TR') + ' ₺';
+            } else {
+                document.getElementById('pd-old-price').style.display = 'none';
+            }
+
+            if(discountText) {
+                document.getElementById('pd-discount').style.display = 'inline-block';
+                document.getElementById('pd-discount').innerText = discountText;
+            } else {
+                document.getElementById('pd-discount').style.display = 'none';
+            }
+
+            document.getElementById('pd-desc').innerText = descText;
+
+            document.getElementById('productPageOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            var breadcrumbName = document.getElementById('pd-breadcrumb-name');
+            if(breadcrumbName) breadcrumbName.textContent = name;
+        }
+
+        function closeProductPage() {
+            document.getElementById('productPageOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function addToCartFromDetail() {
+            if(currentDetailItem) {
+                addToCart(currentDetailItem.id, currentDetailItem.name, currentDetailItem.price);
+                closeProductPage();
+            }
+        }
+
+        /* --- SEPET MANTIĞI --- */
+        let cartData = [];
+
+        function addToCart(id, name, price) {
+            const existing = cartData.find(i => i.id === id);
+            if(existing) { existing.quantity++; } 
+            else { cartData.push({id: id, name: name, price: price, quantity: 1}); }
+            updateCartUI();
+            openCart();
+            showToast(name + ' sepete eklendi!', 'success');
+        }
+
+        function changeQuantity(id, change) {
+            const item = cartData.find(i => i.id === id);
+            if(item) {
+                item.quantity += change;
+                if(item.quantity <= 0) { cartData = cartData.filter(i => i.id !== id); }
+                updateCartUI();
+            }
+        }
+
+        function deleteItem(id) {
+            cartData = cartData.filter(i => i.id !== id);
+            updateCartUI();
+        }
+
+        function clearWholeCart() {
+            cartData = [];
+            updateCartUI();
+            closeCartPage();
+        }
+
+        function updateCartUI() {
+            const drawerContent = document.getElementById('cart-body-content');
+            const pageContent = document.getElementById('cart-page-items-list');
+            const footerContent = document.getElementById('cart-footer-content');
+            const cartCounter = document.getElementById('cart-counter');
+            
+            drawerContent.innerHTML = '';
+            pageContent.innerHTML = '';
+            
+            let totalCount = 0;
+            let subtotalPrice = 0;
+
+            if(cartData.length === 0) {
+                drawerContent.innerHTML = '<div style="text-align:center; margin-top:40px; font-weight:700;">Sepetiniz boş.</div>';
+                pageContent.innerHTML = '<div style="text-align:center; padding:40px; font-weight:800; font-size:18px;">Sepetinizde ürün bulunmamaktadır.</div>';
+                footerContent.style.display = 'none';
+                cartCounter.textContent = '0';
+                return;
+            }
+
+            footerContent.style.display = 'block';
+
+            cartData.forEach(item => {
+                totalCount += item.quantity;
+                const rowTotal = item.price * item.quantity;
+                subtotalPrice += rowTotal;
+
+                drawerContent.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-img"></div>
+                        <div class="cart-item-info">
+                            <div style="font-weight:800; line-height:1.2;">${item.name}</div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+                                <span style="font-weight:900; color:var(--primary-blue); font-size:16px;">${item.price.toLocaleString('tr-TR')} ₺</span>
+                                <div style="display:flex; align-items:center; gap:5px;">
+                                    <button class="btn btn-sm" onclick="changeQuantity('${item.id}', -1)"><i class="fa-solid fa-minus"></i></button>
+                                    <span style="font-weight:800;">${item.quantity}</span>
+                                    <button class="btn btn-sm" onclick="changeQuantity('${item.id}', 1)"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+
+                pageContent.innerHTML += `
+                    <div class="cart-page-item-row">
+                        <div class="cart-item-img" style="width:60px; height:60px;"></div>
+                        <div>
+                            <small style="color:var(--primary-blue); font-weight:900; text-transform:uppercase;">Sekerco Premium</small>
+                            <div style="font-weight:800; font-size:15px; line-height:1.2;">${item.name}</div>
+                            <span style="font-size:11px; background:#fff3cd; padding:4px 8px; border-radius:4px; font-weight:800; border:2px solid var(--border-color); margin-top:6px; display:inline-block;">%100 KAMPANYA İNDİRİMİ</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <button class="btn btn-sm" onclick="changeQuantity('${item.id}', -1)"><i class="fa-solid fa-minus"></i></button>
+                            <span style="font-weight:900; font-size:16px;">${item.quantity}</span>
+                            <button class="btn btn-sm" onclick="changeQuantity('${item.id}', 1)"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                        <div>
+                            <span style="font-size:13px; color:#888; font-weight:700; text-decoration:line-through; display:block;">${(item.price * 1.2).toLocaleString('tr-TR')} ₺</span>
+                            <strong style="font-size:16px; font-weight:900;">${item.price.toLocaleString('tr-TR')} ₺</strong>
+                        </div>
+                        <div>
+                            <strong style="color:var(--primary-blue); font-size:18px; font-weight:900;">${rowTotal.toLocaleString('tr-TR')} ₺</strong>
+                        </div>
+                        <div>
+                            <button style="background:none; border:none; cursor:pointer; color:#888; font-size:20px; transition:color 0.2s;" onmouseover="this.style.color='red'" onmouseout="this.style.color='#888'" onclick="deleteItem('${item.id}')"><i class="fa-regular fa-trash-can"></i></button>
+                        </div>
+                    </div>`;
+            });
+
+            cartCounter.textContent = totalCount;
+            document.getElementById('cart-total-price').textContent = subtotalPrice.toLocaleString('tr-TR') + ' ₺';
+            
+            const mockDiscount = Math.floor(subtotalPrice * 0.05); 
+            const finalPrice = subtotalPrice - mockDiscount;
+
+            document.getElementById('page-subtotal').textContent = subtotalPrice.toLocaleString('tr-TR') + ' ₺';
+            document.getElementById('page-discount').textContent = '-' + mockDiscount.toLocaleString('tr-TR') + ' ₺';
+            document.getElementById('page-total').textContent = finalPrice.toLocaleString('tr-TR') + ' ₺';
+
+            document.querySelectorAll('.checkout-sum-price').forEach(el => el.textContent = finalPrice.toLocaleString('tr-TR') + ' ₺');
+        }
+
+        /* --- FAVORİ TOGGLE --- */
+        function toggleFavorite(btn) {
+            btn.classList.toggle('active');
+            var icon = btn.querySelector('i');
+            if(btn.classList.contains('active')) {
+                icon.className = 'fa-solid fa-heart';
+                showToast('Favorilere eklendi!', 'success');
+            } else {
+                icon.className = 'fa-regular fa-heart';
+                showToast('Favorilerden çıkarıldı.', 'info');
+            }
+        }
+
+        /* --- YUKARI ÇIK BUTONU --- */
+        window.addEventListener('scroll', function() {
+            var btn = document.getElementById('backToTop');
+            if(window.scrollY > 400) { btn.classList.add('visible'); }
+            else { btn.classList.remove('visible'); }
+        });
+
+        /* --- ÇEREZ BİLDİRİMİ --- */
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookieBanner').classList.remove('visible');
+        }
+
+        /* --- TOAST BİLDİRİMLERİ --- */
+        function showToast(message, type) {
+            type = type || 'success';
+            var container = document.getElementById('toastContainer');
+            var toast = document.createElement('div');
+            toast.className = 'toast toast-' + type;
+            var icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info' };
+            toast.innerHTML = '<span class="toast-icon"><i class="fa-solid ' + (icons[type] || icons.success) + '"></i></span><span>' + message + '</span>';
+            container.appendChild(toast);
+            setTimeout(function() { if(toast.parentNode) toast.remove(); }, 3200);
+        }
+
+        /* --- CANLI GERİ SAYIM SAYACI --- */
+        function startCountdown() {
+            var el = document.querySelector('.product-detail-countdown strong');
+            if(!el) return;
+            var now = new Date();
+            var endOfDay = new Date(now);
+            endOfDay.setHours(23, 59, 59, 999);
+            function update() {
+                var current = new Date();
+                var diff = endOfDay - current;
+                if(diff <= 0) return;
+                var h = Math.floor(diff / 3600000);
+                var m = Math.floor((diff % 3600000) / 60000);
+                var s = Math.floor((diff % 60000) / 1000);
+                el.textContent = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            }
+            update();
+            setInterval(update, 1000);
+        }
+        startCountdown();
+
+        /* --- SAYFA YÜKLEME ANİMASYONU --- */
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('pageLoader').classList.add('hidden');
+            }, 800);
+            /* Çerez bildirimi */
+            if(!localStorage.getItem('cookiesAccepted')) {
+                setTimeout(function() { document.getElementById('cookieBanner').classList.add('visible'); }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
